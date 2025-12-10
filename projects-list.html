@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Archive | Ashraf Eddounassi</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        const storedTheme = localStorage.getItem('theme');
+        if (storedTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo" style="text-decoration: none;">&lt;SysAdmin/&gt;<span>_</span></a>
+
+            <nav>
+                <a href="index.html" class="nav-link">About</a>
+                <a href="projects-list.html" class="nav-link active">Projects</a>
+                <a href="index.html#contact" class="btn-nav nav-link">Contact</a>
+
+                <button id="theme-toggle" class="binary-switch" aria-label="Toggle Theme">
+                    <span class="binary-label">0</span>
+                    <span class="binary-label">1</span>
+                    <span class="cursor-block"></span>
+                </button>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="archive-section">
+            <div class="container">
+                <div class="archive-header">
+                    <h1 class="section-title">Project Archive<span class="cursor-blink">_</span></h1>
+                    <p class="subtitle">Complete list of deployed systems and tools.</p>
+                </div>
+
+                <div class="archive-grid">
+
+                    <article class="archive-card">
+                        <div class="archive-content">
+                            <h3><a href="project.html">Enterprise Cloud Migration</a></h3>
+                            <div class="archive-bar"></div>
+                            <p>Full migration of on-premise legacy systems to AWS using Terraform and Blue/Green strategy.</p>
+                            <div class="tech-stack">
+                                <span>AWS</span><span>Terraform</span><span>Linux</span>
+                            </div>
+                        </div>
+                        <div class="archive-image">
+                            <img src="https://images.unsplash.com/photo-1558494949-ef526b0042a0?q=80&w=300&h=300&auto=format&fit=crop" alt="AWS Project">
+                        </div>
+                    </article>
+
+                    <article class="archive-card">
+                        <div class="archive-content">
+                            <h3><a href="project.html">Automated CI/CD Pipeline</a></h3>
+                            <div class="archive-bar"></div>
+                            <p>Jenkins pipeline integration for Dockerized applications, reducing deployment time by 80%.</p>
+                            <div class="tech-stack">
+                                <span>Jenkins</span><span>Docker</span><span>Bash</span>
+                            </div>
+                        </div>
+                        <div class="archive-image">
+                            <img src="https://images.unsplash.com/photo-1607799275518-d58665d099db?q=80&w=300&h=300&auto=format&fit=crop" alt="CI/CD Project">
+                        </div>
+                    </article>
+
+                    <article class="archive-card">
+                        <div class="archive-content">
+                            <h3><a href="#">Kubernetes Cluster Setup</a></h3>
+                            <div class="archive-bar"></div>
+                            <p>High-availability K8s cluster configuration on bare metal servers using Ansible.</p>
+                            <div class="tech-stack">
+                                <span>K8s</span><span>Ansible</span><span>Networking</span>
+                            </div>
+                        </div>
+                        <div class="archive-image">
+                            <img src="https://images.unsplash.com/photo-1667372393119-c81c0e83039d?q=80&w=300&h=300&auto=format&fit=crop" alt="K8s Project">
+                        </div>
+                    </article>
+
+                    <article class="archive-card">
+                        <div class="archive-content">
+                            <h3><a href="#">Network Security Audit</a></h3>
+                            <div class="archive-bar"></div>
+                            <p>Comprehensive penetration testing, firewall hardening, and intrusion detection system setup.</p>
+                            <div class="tech-stack">
+                                <span>Security</span><span>Python</span><span>Wireshark</span>
+                            </div>
+                        </div>
+                        <div class="archive-image">
+                            <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=300&h=300&auto=format&fit=crop" alt="Security Project">
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-top">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">System Status: <strong>Online</strong></span>
+                </div>
+
+                <div class="social-links">
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                </div>
+            </div>
+
+            <p class="copyright">
+                © 2025 Ashraf Eddounassi — <span class="tech-highlight">sudo reboot</span>
+            </p>
+
+            <a href="mailto:ashraf.eddounassi.7e9@itb.cat" class="email-mini">ashraf.eddounassi.7e9@itb.cat</a>
+        </div>
+    </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
+
+        toggleBtn.addEventListener('click', () => {
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -651,3 +651,164 @@ footer {
     .detail-grid { grid-template-columns: 1fr; gap: 30px; }
     .project-title { font-size: 1.8rem; }
 }
+/* =========================================
+   ESTILOS PARA LA LISTA DE PROYECTOS (ARCHIVE)
+   ========================================= */
+
+/* Sección Principal */
+.archive-section {
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* Cabecera de la lista */
+.archive-header {
+    text-align: left;
+    margin-bottom: 50px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+}
+
+.archive-header h1 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-family: 'Fira Code', monospace;
+    letter-spacing: -1px;
+}
+
+.archive-header .subtitle {
+    font-size: 1rem;
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+    text-transform: none; /* Reset del estilo subtitle global si es necesario */
+    background: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Grid de la lista */
+.archive-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Usamos bordes para separar, no gap */
+}
+
+/* --- TARJETA DE PROYECTO (LISTA) --- */
+.archive-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Centrado vertical */
+    padding: 30px 0;
+    border-bottom: 1px solid var(--border-color);
+    gap: 30px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* Efecto Hover: Desplazamiento lateral estilo Terminal */
+.archive-card:hover {
+    transform: translateX(10px);
+    border-bottom-color: var(--accent-color);
+}
+
+/* Quitar borde al último elemento */
+.archive-card:last-child {
+    border-bottom: none;
+}
+
+/* Contenido de Texto (Izquierda) */
+.archive-content {
+    flex: 1; /* Ocupa el espacio restante */
+}
+
+.archive-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    font-family: 'Fira Code', monospace;
+}
+
+.archive-content h3 a {
+    text-decoration: none;
+    color: var(--primary-color);
+    transition: color 0.2s;
+}
+
+.archive-content h3 a:hover {
+    color: var(--accent-color);
+}
+
+.archive-content p {
+    color: var(--text-light);
+    margin-bottom: 15px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Etiquetas de Tecnologías (Tags) */
+.archive-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.archive-tags span {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.85rem;
+    background: var(--tech-badge-bg);
+    color: var(--tech-badge-text);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* Hover en los tags */
+.archive-card:hover .archive-tags span {
+    border-color: var(--accent-color);
+}
+
+/* Contenedor de Imagen (Derecha) */
+.archive-image {
+    width: 160px;
+    height: 160px;
+    flex-shrink: 0; /* Evita que la imagen se aplaste */
+    border: 1px solid var(--border-color);
+    padding: 5px; /* Marco blanco/oscuro alrededor de la foto */
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border-color 0.3s ease;
+}
+
+.archive-card:hover .archive-image {
+    border-color: var(--accent-color);
+}
+
+.archive-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+/* --- RESPONSIVE PARA MÓVILES --- */
+@media (max-width: 768px) {
+    .archive-card {
+        flex-direction: column-reverse; /* Imagen arriba, texto abajo */
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .archive-image {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 5px;
+    }
+
+    .archive-header h1 {
+        font-size: 2rem;
+    }
+}

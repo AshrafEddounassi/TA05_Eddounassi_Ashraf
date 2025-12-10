@@ -21,13 +21,13 @@
 
             <nav>
                 <a href="#about" class="nav-link">About</a>
-                <a href="#projects" class="nav-link">Projects</a>
+                <a href="projects-list.html" class="nav-link">Projects</a>
                 <a href="#contact" class="btn-nav nav-link">Contact</a>
 
                 <button id="theme-toggle" class="binary-switch" aria-label="Toggle Theme">
                     <span class="binary-label">0</span>
                     <span class="binary-label">1</span>
-                    <span class="cursor-block"></span>
+                    <div class="cursor-block"></div>
                 </button>
             </nav>
         </div>
@@ -51,7 +51,7 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary nav-link">View Projects</a>
+                    <a href="projects-list.html" class="btn btn-primary nav-link">View Projects</a>
                     <a href="#contact" class="btn btn-outline nav-link">Get in Touch</a>
                 </div>
             </div>
@@ -62,7 +62,7 @@
 
             <article class="project-card hidden">
                 <div class="project-image">
-                    <img src="https://placehold.co/600x400/0f172a/FFF?text=Cloud+Migration+Project" alt="Cloud Architecture Diagram">
+                    <img src="https://images.unsplash.com/photo-1558494949-ef526b0042a0?q=80&w=1000&auto=format&fit=crop" alt="Cloud Architecture Diagram">
                 </div>
 
                 <div class="project-info">
@@ -103,7 +103,7 @@
                 </div>
 
                 <div class="project-image">
-                    <img src="https://placehold.co/600x400/0f172a/FFF?text=CI%2FCD+Pipeline+Workflow" alt="CI/CD Workflow">
+                    <img src="https://images.unsplash.com/photo-1607799275518-d58665d099db?q=80&w=1000&auto=format&fit=crop" alt="CI/CD Workflow">
                 </div>
             </article>
 
@@ -128,19 +128,19 @@
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">input --name</span>
-                                <input type="text" name="name" class="cmd-input" placeholder="Enter your name..." required autocomplete="off" aria-label="Name">
+                                <input type="text" name="name" class="cmd-input" placeholder="Enter your name..." required autocomplete="off">
                             </div>
 
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">input --email</span>
-                                <input type="email" name="email" class="cmd-input" placeholder="Enter your email..." required autocomplete="off" aria-label="Email">
+                                <input type="email" name="email" class="cmd-input" placeholder="Enter your email..." required autocomplete="off">
                             </div>
 
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">nano message.txt</span>
-                                <textarea name="message" class="cmd-input" rows="4" placeholder="Type your message here..." required aria-label="Message"></textarea>
+                                <textarea name="message" class="cmd-input" rows="4" placeholder="Type your message here..." required></textarea>
                             </div>
 
                             <div class="terminal-line">
@@ -166,8 +166,8 @@
                 </div>
 
                 <div class="social-links">
-                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 </div>
             </div>
 
@@ -207,7 +207,7 @@
         const hiddenElements = document.querySelectorAll('.hidden');
         hiddenElements.forEach((el) => observer.observe(el));
 
-        // 3. FIX: Scroll Suave
+        // 3. FIX: Scroll Suave (Solo para enlaces internos con #)
         document.querySelectorAll('nav a[href^="#"], .hero-buttons a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -219,7 +219,6 @@
                     const headerOffset = 85;
                     const elementPosition = targetElement.getBoundingClientRect().top;
 
-                    // CORRECCIÓN 3: Uso de window.scrollY en lugar de pageYOffset (deprecated)
                     const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
                     window.scrollTo({
