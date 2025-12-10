@@ -20,14 +20,14 @@
             <h1 class="logo">&lt;SysAdmin/&gt;<span>_</span></h1>
 
             <nav>
-                <a href="#about">About</a>
-                <a href="#projects">Projects</a>
-                <a href="#contact" class="btn-nav">Contact</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#contact" class="btn-nav nav-link">Contact</a>
 
                 <button id="theme-toggle" class="binary-switch" aria-label="Toggle Theme">
                     <span class="binary-label">0</span>
                     <span class="binary-label">1</span>
-                    <div class="cursor-block"></div>
+                    <span class="cursor-block"></span>
                 </button>
             </nav>
         </div>
@@ -51,8 +51,8 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View Projects</a>
-                    <a href="#contact" class="btn btn-outline">Get in Touch</a>
+                    <a href="#projects" class="btn btn-primary nav-link">View Projects</a>
+                    <a href="#contact" class="btn btn-outline nav-link">Get in Touch</a>
                 </div>
             </div>
         </section>
@@ -79,7 +79,7 @@
                         <li><i class="fab fa-linux"></i> RHEL Linux</li>
                     </ul>
 
-                    <a href="#" class="btn-link">View Case Study &rarr;</a>
+                    <a href="project.html" class="btn-link">View Case Study &rarr;</a>
                 </div>
             </article>
 
@@ -99,7 +99,7 @@
                         <li><i class="fab fa-python"></i> Python</li>
                     </ul>
 
-                    <a href="#" class="btn-link">View Script Repository &rarr;</a>
+                    <a href="project.html" class="btn-link">View Script Repository &rarr;</a>
                 </div>
 
                 <div class="project-image">
@@ -128,19 +128,19 @@
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">input --name</span>
-                                <input type="text" name="name" class="cmd-input" placeholder="Enter your name..." required autocomplete="off">
+                                <input type="text" name="name" class="cmd-input" placeholder="Enter your name..." required autocomplete="off" aria-label="Name">
                             </div>
 
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">input --email</span>
-                                <input type="email" name="email" class="cmd-input" placeholder="Enter your email..." required autocomplete="off">
+                                <input type="email" name="email" class="cmd-input" placeholder="Enter your email..." required autocomplete="off" aria-label="Email">
                             </div>
 
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">nano message.txt</span>
-                                <textarea name="message" class="cmd-input" rows="4" placeholder="Type your message here..." required></textarea>
+                                <textarea name="message" class="cmd-input" rows="4" placeholder="Type your message here..." required aria-label="Message"></textarea>
                             </div>
 
                             <div class="terminal-line">
@@ -166,8 +166,8 @@
                 </div>
 
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-github"></i> GitHub</a>
-                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                    <a href="#" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
                 </div>
             </div>
 
@@ -195,21 +195,40 @@
             }
         });
 
-        // 2. Lógica de Animación Scroll (Intersection Observer)
-        const observerOptions = {
-            threshold: 0.1
-        };
-
+        // 2. Animación Scroll (Fade Up)
         const observer = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show');
                 }
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         const hiddenElements = document.querySelectorAll('.hidden');
         hiddenElements.forEach((el) => observer.observe(el));
+
+        // 3. FIX: Scroll Suave
+        document.querySelectorAll('nav a[href^="#"], .hero-buttons a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    const headerOffset = 85;
+                    const elementPosition = targetElement.getBoundingClientRect().top;
+
+                    // CORRECCIÓN 3: Uso de window.scrollY en lugar de pageYOffset (deprecated)
+                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
     </script>
 
 </body>

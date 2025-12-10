@@ -1,19 +1,22 @@
 /* ===== VARIABLES DE TEMA ===== */
 :root {
     /* MODO CLARO (Default) */
-    --primary-color: #0f172a;       /* Navy oscuro */
-    --accent-color: #3b82f6;        /* Azul brillante */
-    --bg-color: #f8fafc;            /* Gris casi blanco */
-    --card-bg: #ffffff;             /* Blanco */
-    --text-main: #334155;           /* Gris oscuro */
-    --text-light: #64748b;          /* Gris suave */
-    --header-bg: rgba(248, 250, 252, 0.9); /* Header semi-transparente */
+    --primary-color: #0f172a;
+    --accent-color: #3b82f6;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #334155;
+    --text-light: #64748b;
+    --header-bg: rgba(248, 250, 252, 0.9);
     --border-color: #e2e8f0;
     --tech-badge-bg: #e0f2fe;
     --tech-badge-text: #0369a1;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
-    /* Decoración de fondo (Puntos) */
+    /* Variable recuperada que faltaba */
+    --border-radius: 8px;
+
+    /* Decoración */
     --dot-color: #cbd5e1;
 }
 
@@ -21,7 +24,7 @@
 [data-theme="dark"] {
     --primary-color: #f8fafc;
     --accent-color: #60a5fa;
-    --bg-color: #0f172a;            /* Fondo oscuro */
+    --bg-color: #0f172a;
     --card-bg: #1e293b;
     --text-main: #cbd5e1;
     --text-light: #94a3b8;
@@ -30,8 +33,6 @@
     --tech-badge-bg: #0f172a;
     --tech-badge-text: #38bdf8;
     --shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.5);
-
-    /* Decoración de fondo (Puntos más oscuros) */
     --dot-color: #1e293b;
 }
 
@@ -40,7 +41,7 @@ body, header, .project-card, .tech-highlight, .btn-outline, footer, .terminal-wi
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ===== RESET & FONDO MEJORADO ===== */
+/* ===== RESET & SCROLL ===== */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -49,14 +50,14 @@ body, header, .project-card, .tech-highlight, .btn-outline, footer, .terminal-wi
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 85px; /* Compensa el header fijo */
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-color);
-    /* PATRÓN DE PUNTOS (GRID) */
     background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
-    background-size: 30px 30px; /* Tamaño de la cuadrícula */
+    background-size: 30px 30px;
     color: var(--text-main);
     line-height: 1.7;
 }
@@ -64,16 +65,16 @@ body {
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
-/* ===== ANIMACIONES DE SCROLL (Scroll Reveal) ===== */
+/* ===== ANIMACIONES (Fade Up) ===== */
 .hidden {
     opacity: 0;
-    transform: translateY(30px); /* Empieza más abajo */
-    transition: all 0.8s ease-out; /* Suavidad */
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
 }
 
 .show {
     opacity: 1;
-    transform: translateY(0); /* Sube a su sitio */
+    transform: translateY(0);
 }
 
 /* ===== HEADER ===== */
@@ -84,7 +85,7 @@ header {
     top: 0;
     z-index: 100;
     border-bottom: 1px solid var(--border-color);
-    backdrop-filter: blur(8px); /* Efecto vidrio más fuerte */
+    backdrop-filter: blur(8px);
 }
 
 .container {
@@ -128,9 +129,9 @@ nav a {
     color: var(--text-main);
     transition: color 0.3s;
     position: relative;
+    cursor: pointer;
 }
 
-/* Efecto hover en links (subrayado animado) */
 nav a::after {
     content: '';
     position: absolute;
@@ -141,10 +142,7 @@ nav a::after {
     background-color: var(--accent-color);
     transition: width 0.3s;
 }
-
-nav a:hover::after {
-    width: 100%;
-}
+nav a:hover::after { width: 100%; }
 nav a:hover { color: var(--accent-color); }
 
 .btn-nav {
@@ -153,8 +151,7 @@ nav a:hover { color: var(--accent-color); }
     padding: 8px 20px;
     border-radius: 4px;
 }
-
-.btn-nav::after { display: none; } /* Sin subrayado en el botón */
+.btn-nav::after { display: none; }
 .btn-nav:hover {
     background: var(--accent-color);
     color: white !important;
@@ -218,7 +215,6 @@ nav a:hover { color: var(--accent-color); }
     position: relative;
 }
 
-/* Decoración Binaria de Fondo */
 .binary-bg {
     position: absolute;
     top: 20px;
@@ -255,11 +251,7 @@ nav a:hover { color: var(--accent-color); }
     display: inline-block;
 }
 
-.cursor-blink {
-    color: var(--accent-color);
-    animation: blink 1s infinite;
-}
-
+.cursor-blink { color: var(--accent-color); animation: blink 1s infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
 .hero-content h2 {
@@ -279,11 +271,7 @@ nav a:hover { color: var(--accent-color); }
     margin-right: auto;
 }
 
-.hero-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-}
+.hero-buttons { display: flex; gap: 15px; justify-content: center; }
 
 .btn {
     padding: 14px 35px;
@@ -300,7 +288,7 @@ nav a:hover { color: var(--accent-color); }
 .btn-primary:hover {
     background: var(--primary-color);
     border-color: var(--primary-color);
-    transform: translateY(-2px); /* Pequeño salto */
+    transform: translateY(-2px);
 }
 
 .btn-outline {
@@ -365,7 +353,6 @@ nav a:hover { color: var(--accent-color); }
     font-size: 1rem;
 }
 
-/* Tech Stack Badges */
 .tech-stack {
     list-style: none;
     display: flex;
@@ -494,7 +481,97 @@ nav a:hover { color: var(--accent-color); }
     box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
 }
 
-/* ===== FOOTER MEJORADO ===== */
+/* ===== PROJECT DETAILS PAGE ===== */
+.project-hero { padding: 60px 20px 40px; }
+.terminal-window.large { max-width: 100%; margin-bottom: 20px; }
+.project-title { font-size: 2.5rem; color: #fff; margin: 10px 0; }
+.project-subtitle { color: #a3a3a3; font-family: 'Fira Code', monospace; margin-bottom: 20px; }
+
+.status-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
+    font-family: 'Fira Code', monospace;
+    text-transform: uppercase;
+}
+.status-badge.online {
+    background: rgba(34, 197, 94, 0.2);
+    color: #4ade80;
+    border: 1px solid #4ade80;
+}
+
+.detail-image {
+    margin-bottom: 50px;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+
+.detail-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 50px;
+    margin-bottom: 80px;
+}
+
+.detail-content h2 {
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.detail-content h2:first-child { margin-top: 0; }
+.detail-content p { margin-bottom: 20px; color: var(--text-light); font-size: 1.1rem; }
+
+.result-list {
+    list-style: none;
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+}
+.result-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+.result-list i { color: var(--accent-color); }
+
+.detail-sidebar { display: flex; flex-direction: column; gap: 30px; }
+.sidebar-box {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow);
+}
+.sidebar-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.tech-stack-vertical { list-style: none; }
+.tech-stack-vertical li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--text-main);
+    font-family: 'Fira Code', monospace;
+    font-size: 0.9rem;
+}
+.tech-stack-vertical li:last-child { border-bottom: none; }
+.tech-stack-vertical i { color: var(--accent-color); width: 20px; }
+
+.full-width { width: 100%; display: block; text-align: center; margin-bottom: 10px; }
+
+/* ===== FOOTER ===== */
 footer {
     background: var(--primary-color);
     color: var(--bg-color);
@@ -517,7 +594,6 @@ footer {
     gap: 20px;
 }
 
-/* Indicador de Estado del Sistema */
 .status-indicator {
     display: flex;
     align-items: center;
@@ -571,9 +647,7 @@ footer {
     .terminal-line { flex-direction: column; align-items: flex-start; }
     .prompt-user { margin-bottom: 5px; font-size: 0.9rem; }
     .cmd-input { width: 100%; }
-
-    .footer-top {
-        flex-direction: column;
-        justify-content: center;
-    }
+    .footer-top { flex-direction: column; justify-content: center; }
+    .detail-grid { grid-template-columns: 1fr; gap: 30px; }
+    .project-title { font-size: 1.8rem; }
 }
