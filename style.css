@@ -13,6 +13,9 @@
     --tech-badge-text: #0369a1;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 
+    --accent-color: #3b82f6;
+    --accent-color-rgb: 59, 130, 246; /* NUEVO: Versión RGB para efectos */
+
     /* Variable recuperada que faltaba */
     --border-radius: 8px;
 
@@ -34,6 +37,9 @@
     --tech-badge-text: #38bdf8;
     --shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.5);
     --dot-color: #1e293b;
+
+    --accent-color: #60a5fa;
+    --accent-color-rgb: 96, 165, 250; /* NUEVO: Versión RGB oscura */
 }
 
 /* Transiciones globales */
@@ -572,68 +578,176 @@ nav a:hover { color: var(--accent-color); }
 .full-width { width: 100%; display: block; text-align: center; margin-bottom: 10px; }
 
 /* ===== FOOTER ===== */
+/* =========================================
+   10. FOOTER (Fixed Layout & Earth Widget)
+   ========================================= */
+
 footer {
     background: var(--primary-color);
     color: var(--bg-color);
-    text-align: center;
     padding: 40px 20px;
     border-top: 1px solid var(--border-color);
+    margin-top: auto; /* Empuja el footer al fondo si hay poco contenido */
 }
+
 [data-theme="dark"] footer {
     background: #0b1120;
     color: var(--text-light);
 }
 
-.footer-top {
+/* --- ESTRUCTURA PRINCIPAL (La clave para la alineación) --- */
+/* Esta clase pone la info a la izquierda y la Tierra a la derecha */
+.footer-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 600px;
-    margin: 0 auto 30px;
-    flex-wrap: wrap;
+    justify-content: space-between; /* Separa los elementos al máximo */
+    align-items: center; /* Centra verticalmente */
+    max-width: 1100px;
+    margin: 0 auto;
     gap: 20px;
 }
 
-.status-indicator {
+/* --- SECCIÓN IZQUIERDA (Info y Redes) --- */
+.footer-left {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer-top {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
+}
+
+.social-links {
+    display: flex;
+    gap: 15px;
+}
+
+.social-links a {
+    font-size: 1.2rem;
+    color: inherit;
+    transition: color 0.2s;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+.copyright {
+    opacity: 0.7;
     font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-    background: rgba(255,255,255,0.1);
-    padding: 5px 15px;
-    border-radius: 50px;
-}
-.status-dot {
-    width: 10px;
-    height: 10px;
-    background-color: #22c55e;
-    border-radius: 50%;
-    box-shadow: 0 0 8px #22c55e;
-    animation: pulse 2s infinite;
-}
-@keyframes pulse {
-    0% { opacity: 1; }
-    50% { opacity: 0.5; }
-    100% { opacity: 1; }
+    font-size: 13px;
+    margin: 0;
 }
 
 .email-mini {
     font-size: 0.9rem;
     color: var(--accent-color);
-    margin-top: 10px;
-    display: inline-block;
-    transition: color 0.3s;
+    text-decoration: none;
     font-weight: 600;
 }
-.social-links a {
-    margin: 0 10px;
-    font-size: 1.5rem;
-    color: inherit;
-    transition: color 0.2s;
+
+/* --- SECCIÓN DERECHA (Widget Tierra) --- */
+.footer-right {
+    text-align: right; /* Alinea el texto interno a la derecha */
 }
-.social-links a:hover { color: var(--accent-color); }
-.copyright { opacity: 0.7; font-family: 'Fira Code', monospace; font-size: 14px; }
+
+.earth-widget {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Asegura que el contenido vaya a la derecha */
+    gap: 15px;
+    font-family: 'Fira Code', monospace;
+}
+
+/* Contenedor esférico */
+.earth-container {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    flex-shrink: 0;
+}
+
+/* SVG del Mapa (Animado) */
+.earth-svg {
+    width: 240%;
+    height: 100%;
+    color: var(--accent-color);
+    animation: rotateGlobe 15s linear infinite;
+    display: block;
+}
+
+@keyframes rotateGlobe {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* Brillo sobre la tierra */
+.globe-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), transparent 60%);
+    pointer-events: none;
+}
+
+/* Datos de Ubicación y Hora */
+.location-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Alinea los textos a la derecha */
+    font-size: 0.8rem;
+    color: var(--text-light);
+    line-height: 1.4;
+}
+
+.loc-name {
+    font-weight: bold;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column; /* En móvil, uno debajo del otro */
+        text-align: center;
+        gap: 30px;
+    }
+
+    .footer-left {
+        align-items: center; /* CentrarTodo en móvil */
+        text-align: center;
+    }
+
+    .footer-top {
+        justify-content: center;
+    }
+
+    .footer-right {
+        text-align: center;
+        width: 100%;
+    }
+
+    .earth-widget {
+        justify-content: center; /* Centrar widget en móvil */
+        flex-direction: row-reverse; /* Poner la tierra a la izquierda del texto en móvil si se ve mejor */
+    }
+
+    .location-data {
+        align-items: flex-start; /* Alinear texto a la izquierda en relación a la tierra */
+        text-align: left;
+    }
+}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
@@ -810,5 +924,99 @@ footer {
 
     .archive-header h1 {
         font-size: 2rem;
+    }
+}
+
+/* =========================================
+   WIDGET TIERRA (ESTILO WIREFRAME HOLOGRÁFICO)
+   ========================================= */
+.footer-right {
+    text-align: right;
+}
+
+.earth-widget {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 20px;
+    font-family: 'Fira Code', monospace;
+}
+
+/* Contenedor esférico */
+.earth-container {
+    width: 70px; /* Un poco más grande */
+    height: 70px;
+    border-radius: 50%;
+    position: relative;
+    /* Fondo más oscuro para resaltar el brillo */
+    background-color: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(var(--accent-color-rgb), 0.3); /* Borde sutil del color del tema */
+    box-shadow:
+        inset 0 0 20px rgba(0,0,0,0.8), /* Sombra interior profunda */
+        0 0 15px rgba(var(--accent-color-rgb), 0.2); /* Resplandor exterior suave */
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* SVG del Mapa Wireframe */
+.earth-svg {
+    width: 90%;
+    height: 90%;
+    color: var(--accent-color); /* Usa el color azul/cyan del tema */
+    /* EFECTO DE RESPLANDOR CLAVE */
+    filter: drop-shadow(0 0 2px var(--accent-color)) drop-shadow(0 0 5px var(--accent-color));
+    animation: rotateGlobe 20s linear infinite; /* Rotación suave */
+}
+
+/* Animación de rotación */
+@keyframes rotateGlobe {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Brillo superior para efecto de cristal */
+.globe-overlay {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
+    pointer-events: none;
+    mix-blend-mode: overlay; /* Mezcla para un brillo más realista */
+}
+
+/* Datos de texto */
+.location-data {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-size: 0.8rem;
+    color: var(--text-light);
+    line-height: 1.5;
+}
+
+.loc-name {
+    font-weight: bold;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.loc-name i {
+    color: var(--accent-color);
+    filter: drop-shadow(0 0 2px var(--accent-color)); /* Brillo también en el icono */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .earth-widget {
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .location-data {
+        align-items: center;
     }
 }
