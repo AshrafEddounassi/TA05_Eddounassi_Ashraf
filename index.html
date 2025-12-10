@@ -21,7 +21,7 @@
 
             <nav>
                 <a href="#about">About</a>
-                <a href="#projects">Infrastructure</a>
+                <a href="#projects">Projects</a>
                 <a href="#contact" class="btn-nav">Contact</a>
 
                 <button id="theme-toggle" class="binary-switch" aria-label="Toggle Theme">
@@ -49,14 +49,14 @@
                 </p>
 
                 <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">View Infrastructure</a>
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
                     <a href="#contact" class="btn btn-outline">Get in Touch</a>
                 </div>
             </div>
         </section>
 
         <section id="projects" class="projects-section">
-            <h2 class="section-title">Key Implementations</h2>
+            <h2 class="section-title">Featured Projects</h2>
 
             <article class="project-card">
                 <div class="project-image">
@@ -107,23 +107,68 @@
 
         </section>
 
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="section-title">Establish Connection</h2>
+
+                <div class="terminal-window">
+                    <div class="terminal-header">
+                        <div class="terminal-buttons">
+                            <span class="close"></span>
+                            <span class="minimize"></span>
+                            <span class="maximize"></span>
+                        </div>
+                        <div class="terminal-title">visitor@ashraf-server: ~/contact</div>
+                    </div>
+
+                    <div class="terminal-body">
+                        <form action="#" method="POST" class="terminal-form">
+
+                            <div class="terminal-line">
+                                <span class="prompt-user">visitor@portfolio:~$</span>
+                                <span class="command">input --name</span>
+                                <input type="text" name="name" class="cmd-input" placeholder="Enter your name..." required autocomplete="off">
+                            </div>
+
+                            <div class="terminal-line">
+                                <span class="prompt-user">visitor@portfolio:~$</span>
+                                <span class="command">input --email</span>
+                                <input type="email" name="email" class="cmd-input" placeholder="Enter your email..." required autocomplete="off">
+                            </div>
+
+                            <div class="terminal-line">
+                                <span class="prompt-user">visitor@portfolio:~$</span>
+                                <span class="command">nano message.txt</span>
+                                <textarea name="message" class="cmd-input" rows="4" placeholder="Type your message here..." required></textarea>
+                            </div>
+
+                            <div class="terminal-line">
+                                <span class="prompt-user">visitor@portfolio:~$</span>
+                                <button type="submit" class="btn-terminal">
+                                    ./send_message.sh <span class="cursor-block"></span>
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <footer id="contact">
-        <div class="footer-content">
-            <h2>System Down? Let's fix it.</h2>
-            <p>Open for opportunities in DevOps and System Administration.</p>
-
-            <a href="mailto:ashraf.eddounassi.7e9@itb.cat" class="email-link">ashraf.eddounassi.7e9@itb.cat</a>
-
+    <footer>
+        <div class="container">
             <div class="social-links">
                 <a href="#"><i class="fab fa-github"></i> GitHub</a>
                 <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
             </div>
 
-            <div class="copyright">
-                <p>© 2025 Ashraf Eddounassi — sudo reboot</p>
-            </div>
+            <p class="copyright">
+                © 2025 Ashraf Eddounassi — <span class="tech-highlight">sudo reboot</span>
+            </p>
+
+            <a href="mailto:ashraf.eddounassi.7e9@itb.cat" class="email-mini">ashraf.eddounassi.7e9@itb.cat</a>
         </div>
     </footer>
 
@@ -131,12 +176,10 @@
         const toggleBtn = document.getElementById('theme-toggle');
         const html = document.documentElement;
 
-        // Cargar preferencia guardada
         if (localStorage.getItem('theme') === 'dark') {
             html.setAttribute('data-theme', 'dark');
         }
 
-        // Alternar tema al hacer clic
         toggleBtn.addEventListener('click', () => {
             if (html.getAttribute('data-theme') === 'dark') {
                 html.removeAttribute('data-theme');

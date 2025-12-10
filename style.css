@@ -87,17 +87,17 @@ header {
     align-items: center;
 }
 
-/* --- LOGO FIXED --- */
+/* --- LOGO CORREGIDO --- */
 .logo {
     font-size: 24px;
     font-weight: 700;
     color: var(--primary-color);
     font-family: 'Fira Code', monospace;
 
-    /* FIX: Alineación y Ligaduras */
+    /* FIX CRÍTICO: Alineación y desactivar ligaduras */
     display: flex;
     align-items: center;
-    font-variant-ligatures: none; /* Crucial: evita que /> se deforme */
+    font-variant-ligatures: none; /* Evita que /> se deforme */
     letter-spacing: -1px;
     margin: 0;
 }
@@ -397,13 +397,136 @@ nav a:hover {
     flex-direction: row-reverse;
 }
 
+/* ===== CONTACT TERMINAL ===== */
+.contact-section {
+    padding: 60px 20px;
+    max-width: 900px;
+    margin: 0 auto 60px;
+}
+
+.terminal-window {
+    background-color: #1e1e1e; /* Fondo oscuro estilo VS Code */
+    border-radius: 10px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    overflow: hidden;
+    font-family: 'Fira Code', monospace;
+    border: 1px solid #333;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.terminal-window:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+}
+
+.terminal-header {
+    background-color: #2d2d2d;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+    position: relative;
+}
+
+.terminal-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.close { background-color: #ff5f56; }
+.minimize { background-color: #ffbd2e; }
+.maximize { background-color: #27c93f; }
+
+.terminal-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #999;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.terminal-body {
+    padding: 30px;
+    color: #d4d4d4;
+}
+
+.terminal-line {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.prompt-user {
+    color: #4ade80; /* Verde Terminal */
+    margin-right: 10px;
+    font-weight: bold;
+    user-select: none;
+}
+
+.command {
+    color: #60a5fa; /* Azul claro */
+    margin-right: 10px;
+    user-select: none;
+}
+
+.cmd-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #444;
+    color: #fff;
+    font-family: 'Fira Code', monospace;
+    font-size: 1rem;
+    flex: 1;
+    padding: 5px;
+    outline: none;
+    min-width: 200px;
+}
+
+.cmd-input:focus {
+    border-bottom: 1px solid #4ade80;
+}
+
+.cmd-input::placeholder {
+    color: #555;
+    font-style: italic;
+}
+
+.btn-terminal {
+    background: transparent;
+    border: 1px solid #4ade80;
+    color: #4ade80;
+    padding: 8px 20px;
+    font-family: 'Fira Code', monospace;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-terminal:hover {
+    background: rgba(74, 222, 128, 0.1);
+    box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
+}
+
 /* ===== FOOTER ===== */
 footer {
     background: var(--primary-color);
     color: var(--bg-color);
     text-align: center;
-    padding: 80px 20px;
-    margin-top: 100px;
+    padding: 40px 20px;
+    border-top: 1px solid var(--border-color);
 }
 
 [data-theme="dark"] footer {
@@ -411,18 +534,13 @@ footer {
     color: var(--text-light);
 }
 
-.footer-content h2 {
-    font-size: 2.5rem;
-    margin-bottom: 15px;
-    letter-spacing: -1px;
-}
-
-.email-link {
-    font-size: 1.5rem;
+.email-mini {
+    font-size: 0.9rem;
     color: var(--accent-color);
+    margin-top: 10px;
+    display: inline-block;
+    transition: color 0.3s;
     font-weight: 600;
-    margin: 20px 0;
-    display: block;
 }
 
 .social-links a {
@@ -437,7 +555,7 @@ footer {
 }
 
 .copyright {
-    margin-top: 50px;
+    margin-top: 20px;
     font-size: 14px;
     opacity: 0.7;
     font-family: 'Fira Code', monospace;
@@ -475,5 +593,20 @@ footer {
 
     nav a {
         margin: 0;
+    }
+
+    /* Responsive Contact */
+    .terminal-line {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .prompt-user {
+        margin-bottom: 5px;
+        font-size: 0.9rem;
+    }
+
+    .cmd-input {
+        width: 100%;
     }
 }
