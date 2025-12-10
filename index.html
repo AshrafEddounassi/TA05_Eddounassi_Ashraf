@@ -35,7 +35,9 @@
 
     <main>
 
-        <section id="about" class="hero-section">
+        <section id="about" class="hero-section hidden">
+            <div class="binary-bg">01 00 10 11</div>
+
             <div class="hero-content">
                 <span class="subtitle">System Administrator & DevOps</span>
 
@@ -56,9 +58,9 @@
         </section>
 
         <section id="projects" class="projects-section">
-            <h2 class="section-title">Featured Projects</h2>
+            <h2 class="section-title hidden">Featured Projects</h2>
 
-            <article class="project-card">
+            <article class="project-card hidden">
                 <div class="project-image">
                     <img src="https://placehold.co/600x400/0f172a/FFF?text=Cloud+Migration+Project" alt="Cloud Architecture Diagram">
                 </div>
@@ -81,7 +83,7 @@
                 </div>
             </article>
 
-            <article class="project-card reverse">
+            <article class="project-card reverse hidden">
                 <div class="project-info">
                     <h3>02. Automated CI/CD Pipeline</h3>
                     <p>
@@ -107,7 +109,7 @@
 
         </section>
 
-        <section id="contact" class="contact-section">
+        <section id="contact" class="contact-section hidden">
             <div class="container">
                 <h2 class="section-title">Establish Connection</h2>
 
@@ -123,7 +125,6 @@
 
                     <div class="terminal-body">
                         <form action="#" method="POST" class="terminal-form">
-
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">input --name</span>
@@ -148,7 +149,6 @@
                                     ./send_message.sh <span class="cursor-block"></span>
                                 </button>
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -159,9 +159,16 @@
 
     <footer>
         <div class="container">
-            <div class="social-links">
-                <a href="#"><i class="fab fa-github"></i> GitHub</a>
-                <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            <div class="footer-top">
+                <div class="status-indicator">
+                    <span class="status-dot"></span>
+                    <span class="status-text">System Status: <strong>Online</strong></span>
+                </div>
+
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+                </div>
             </div>
 
             <p class="copyright">
@@ -173,12 +180,10 @@
     </footer>
 
     <script>
+        // 1. Lógica Modo Oscuro
         const toggleBtn = document.getElementById('theme-toggle');
         const html = document.documentElement;
-
-        if (localStorage.getItem('theme') === 'dark') {
-            html.setAttribute('data-theme', 'dark');
-        }
+        if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
 
         toggleBtn.addEventListener('click', () => {
             if (html.getAttribute('data-theme') === 'dark') {
@@ -189,6 +194,22 @@
                 localStorage.setItem('theme', 'dark');
             }
         });
+
+        // 2. Lógica de Animación Scroll (Intersection Observer)
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                }
+            });
+        }, observerOptions);
+
+        const hiddenElements = document.querySelectorAll('.hidden');
+        hiddenElements.forEach((el) => observer.observe(el));
     </script>
 
 </body>
