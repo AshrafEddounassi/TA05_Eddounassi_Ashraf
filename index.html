@@ -8,12 +8,21 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        @media (min-width: 900px) {
+            /* Solo en PC invertimos el orden visual: Imagen derecha, Texto izquierda */
+            .project-card.alt-layout {
+                flex-direction: row-reverse;
+            }
+        }
+    </style>
 </head>
 <body>
+
+    <div id="fondo-puntos"></div>
 
     <header>
         <div class="container header-content">
@@ -23,6 +32,19 @@
                 <a href="#about" class="nav-link">About</a>
                 <a href="projects-list.html" class="nav-link">Projects</a>
                 <a href="#contact" class="btn-nav nav-link">Contact</a>
+
+                <div class="lang-dropdown-container">
+                    <button class="lang-btn">
+                        <i class="fas fa-globe"></i> <span id="current-lang-label">EN</span>
+                    </button>
+                    <div class="lang-dropdown-menu">
+                        <a href="#" data-lang="en"><span class="flag-icon">🇺🇸</span> English</a>
+                        <a href="#" data-lang="es"><span class="flag-icon">🇪🇸</span> Español</a>
+                        <a href="#" data-lang="ca"><span class="flag-icon">🇦🇩</span> Català</a>
+                        <a href="#" data-lang="fr"><span class="flag-icon">🇫🇷</span> Français</a>
+                    </div>
+                </div>
+                <div id="google_translate_element"></div>
 
                 <button id="theme-toggle" class="binary-switch" aria-label="Toggle Theme">
                     <span class="binary-label">0</span>
@@ -37,19 +59,15 @@
 
         <section id="about" class="hero-section hidden">
             <div class="binary-bg">01 00 10 11</div>
-
             <div class="hero-content">
                 <span class="subtitle">System Administrator & DevOps</span>
-
-                <h2>Building Reliable, Scalable, and Automated Infrastructure.</h2>
-
+                <h2>Welcome to my Portfolio.</h2>
                 <p>
                     Hello! I'm <strong>Ashraf</strong>, an
-                    <span class="tech-highlight">IT<span class="cursor-blink">_</span></span>
-                    professional dedicated to designing robust systems,
-                    optimizing cloud environments, and eliminating downtime.
+                    <span class="tech-highlight notranslate">I.T.<span class="cursor-blink">_</span></span>
+                    professional dedicated to ensuring infrastructure stability,
+                    automating system maintenance, and maximizing service availability.
                 </p>
-
                 <div class="hero-buttons">
                     <a href="projects-list.html" class="btn btn-primary nav-link">View Projects</a>
                     <a href="#contact" class="btn btn-outline nav-link">Get in Touch</a>
@@ -61,49 +79,55 @@
             <h2 class="section-title hidden">Featured Projects</h2>
 
             <article class="project-card hidden">
-                <div class="project-image">
-                    <img src="https://images.unsplash.com/photo-1558494949-ef526b0042a0?q=80&w=1000&auto=format&fit=crop" alt="Cloud Architecture Diagram">
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
                 </div>
-
                 <div class="project-info">
-                    <h3>01. Enterprise Cloud Migration</h3>
+                    <h3>01. Professional Web Development</h3>
                     <p>
-                        Successfully migrated legacy on-premise infrastructure to AWS.
-                        Designed a scalable VPC architecture, implemented auto-scaling groups,
-                        and reduced server costs by 30% through resource optimization.
+                        Full design and development of a modern, responsive web portal. Focused on User Experience (UX/UI), performance optimization, and accessibility, ensuring seamless visualization across mobile and desktop devices.
                     </p>
-
                     <ul class="tech-stack">
-                        <li><i class="fab fa-aws"></i> AWS</li>
-                        <li><i class="fas fa-code-branch"></i> Terraform</li>
-                        <li><i class="fab fa-linux"></i> RHEL Linux</li>
+                        <li><i class="fab fa-html5"></i> HTML5</li>
+                        <li><i class="fab fa-css3-alt"></i> CSS3</li>
+                        <li><i class="fab fa-js"></i> JavaScript</li>
+                        <li><i class="fas fa-mobile-alt"></i> Responsive</li>
                     </ul>
 
-                    <a href="project.html" class="btn-link">View Case Study &rarr;</a>
+                    <div class="project-links" style="display: flex; gap: 25px; flex-wrap: wrap;">
+                        <a href="project.html?id=01" class="btn-link">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
+
+                        <a href="https://github.com/AshrafEddounassi/TA05_Eddounassi_Ashraf" target="_blank" class="btn-link" style="color: var(--text-light)">
+                            GitHub Repo <i class="fab fa-github"></i>
+                        </a>
+                    </div>
                 </div>
             </article>
 
-            <article class="project-card reverse hidden">
+            <article class="project-card alt-layout hidden">
+                <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'); background-size: cover; background-position: center;">
+                </div>
                 <div class="project-info">
-                    <h3>02. Automated CI/CD Pipeline</h3>
+                    <h3>02. Python CLI Issue Manager</h3>
                     <p>
-                        Built a robust deployment pipeline to eliminate manual errors.
-                        Automated testing, building, and deployment of containerized applications
-                        using Docker and Kubernetes.
+                        Automation tool for processing bulk incident forms. It parses messy CSV/XML data exports, filters critical incidents, and generates clean JSON reports for the IT department, saving hours of manual work.
                     </p>
-
                     <ul class="tech-stack">
-                        <li><i class="fab fa-jenkins"></i> Jenkins</li>
-                        <li><i class="fab fa-docker"></i> Docker</li>
-                        <li><i class="fas fa-terminal"></i> Bash/Shell</li>
                         <li><i class="fab fa-python"></i> Python</li>
+                        <li><i class="fas fa-file-csv"></i> CSV/XML</li>
+                        <li><i class="fas fa-terminal"></i> CLI</li>
                     </ul>
 
-                    <a href="project.html" class="btn-link">View Script Repository &rarr;</a>
-                </div>
+                    <div class="project-links" style="display: flex; gap: 25px; flex-wrap: wrap;">
+                        <a href="project.html?id=02" class="btn-link">
+                            View Details <i class="fas fa-arrow-right"></i>
+                        </a>
 
-                <div class="project-image">
-                    <img src="https://images.unsplash.com/photo-1607799275518-d58665d099db?q=80&w=1000&auto=format&fit=crop" alt="CI/CD Workflow">
+                        <a href="https://github.com/AshrafEddounassi/GP04---TA04-Py-CSV-XML-JSON" target="_blank" class="btn-link" style="color: var(--text-light)">
+                            GitHub Repo <i class="fab fa-github"></i>
+                        </a>
+                    </div>
                 </div>
             </article>
 
@@ -112,7 +136,6 @@
         <section id="contact" class="contact-section hidden">
             <div class="container">
                 <h2 class="section-title">Establish Connection</h2>
-
                 <div class="terminal-window">
                     <div class="terminal-header">
                         <div class="terminal-buttons">
@@ -122,32 +145,36 @@
                         </div>
                         <div class="terminal-title">visitor@ashraf-server: ~/contact</div>
                     </div>
-
                     <div class="terminal-body">
-                        <form action="#" method="POST" class="terminal-form">
+                        <form id="contact-form" action="https://formspree.io/f/mqeekedy" method="POST" class="terminal-form">
+                            <input type="text" name="_gotcha" style="display:none">
+                            
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">input --name</span>
                                 <input type="text" name="name" class="cmd-input" placeholder="Enter your name..." required autocomplete="off">
                             </div>
-
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">input --email</span>
                                 <input type="email" name="email" class="cmd-input" placeholder="Enter your email..." required autocomplete="off">
                             </div>
-
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
                                 <span class="command">nano message.txt</span>
                                 <textarea name="message" class="cmd-input" rows="4" placeholder="Type your message here..." required></textarea>
                             </div>
-
                             <div class="terminal-line">
                                 <span class="prompt-user">visitor@portfolio:~$</span>
-                                <button type="submit" class="btn-terminal">
+                                <button type="submit" id="submit-btn" class="btn-terminal">
                                     ./send_message.sh <span class="cursor-block"></span>
                                 </button>
+                            </div>
+                            <div id="form-status" style="display: none; margin-top: 15px;">
+                                <div class="terminal-line">
+                                    <span class="prompt-user">root@portfolio:~$</span>
+                                    <span style="color: #4ade80;">Message sent successfully! [200 OK]</span>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -159,54 +186,26 @@
 
     <footer>
         <div class="container footer-container">
-
             <div class="footer-left">
                 <div class="footer-top">
                     <div class="social-links">
-                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://github.com/AshrafEddounassi" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
                     </div>
                 </div>
-
                 <p class="copyright">
-                    © 2025 Ashraf Eddounassi — <span class="tech-highlight">sudo reboot</span>
+                    © 2025 Ashraf Eddounassi
                 </p>
-
-                <a href="mailto:ashraf.eddounassi.7e9@itb.cat" class="email-mini">ashraf.eddounassi.7e9@itb.cat</a>
+                <a href="#" id="email-copy-btn" class="email-mini" title="Click to Copy">
+                    <i class="far fa-envelope"></i> ashraf.eddounassi.7e9@itb.cat
+                </a>
             </div>
-
             <div class="footer-right">
                 <div class="earth-widget">
-
                     <div class="earth-container">
-                        <svg class="earth-svg" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                            <g class="wireframe-lines" opacity="0.4" stroke-width="0.5">
-                                <circle cx="50" cy="50" r="48"/>
-                                <ellipse cx="50" cy="50" rx="48" ry="20"/>
-                                <ellipse cx="50" cy="50" rx="48" ry="35"/>
-                                <ellipse cx="50" cy="50" rx="20" ry="48"/>
-                                <ellipse cx="50" cy="50" rx="35" ry="48"/>
-                                <line x1="50" y1="2" x2="50" y2="98"/>
-                                <line x1="2" y1="50" x2="98" y2="50"/>
-                            </g>
-
-                            <g class="wireframe-dots" fill="currentColor" stroke="none">
-                                <circle cx="50" cy="50" r="2"/>
-                                <circle cx="50" cy="30" r="1.5"/>
-                                <circle cx="50" cy="70" r="1.5"/>
-                                <circle cx="30" cy="50" r="1.5"/>
-                                <circle cx="70" cy="50" r="1.5"/>
-                                <circle cx="36" cy="36" r="1"/>
-                                <circle cx="64" cy="64" r="1"/>
-                                <circle cx="36" cy="64" r="1"/>
-                                <circle cx="64" cy="36" r="1"/>
-                                <circle cx="25" cy="43" r="1"/>
-                                <circle cx="75" cy="57" r="1"/>
-                            </g>
-                        </svg>
+                        <div class="earth-3d"></div>
                         <div class="globe-overlay"></div>
                     </div>
-
                     <div class="location-data">
                         <span class="loc-name"><i class="fas fa-map-marker-alt"></i> Barcelona, ES</span>
                         <span class="loc-time" id="world-time">--:--:--</span>
@@ -214,110 +213,173 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </footer>
 
-    <script>
-        // 1. Lógica Modo Oscuro
-        const toggleBtn = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,es,ca,fr',
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-        toggleBtn.addEventListener('click', () => {
-            if (html.getAttribute('data-theme') === 'dark') {
-                html.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-            } else {
-                html.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- 1. LÓGICA TRADUCTOR ---
+            const match = document.cookie.match(new RegExp('(^| )googtrans=([^;]+)'));
+            let currentLangCode = 'en';
+            if (match && match[2]) {
+                currentLangCode = match[2].split('/').pop();
+            }
+            const label = document.getElementById('current-lang-label');
+            if(label) label.textContent = currentLangCode.toUpperCase();
+
+            document.querySelectorAll('.lang-dropdown-menu a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetLang = link.getAttribute('data-lang');
+                    document.cookie = `googtrans=/auto/${targetLang}; path=/; sameSite=Strict`;
+                    window.location.reload();
+                });
+            });
+
+            // --- 2. LÓGICA FORMULARIO AJAX (NO REDIRECT) ---
+            const form = document.getElementById("contact-form");
+            const statusDiv = document.getElementById("form-status");
+            const submitBtn = document.getElementById("submit-btn");
+
+            if(form) {
+                form.addEventListener("submit", async function(event) {
+                    event.preventDefault(); // Evita recargar la página
+
+                    const data = new FormData(event.target);
+                    
+                    // Efecto visual de "Cargando"
+                    const originalBtnText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = "Uploading packets...";
+                    submitBtn.disabled = true;
+
+                    fetch(event.target.action, {
+                        method: form.method,
+                        body: data,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            // Éxito: Limpiar formulario y mostrar mensaje terminal
+                            form.reset();
+                            statusDiv.style.display = "block";
+                            submitBtn.innerHTML = originalBtnText;
+                            submitBtn.disabled = false;
+                            
+                            // Ocultar mensaje después de 5 seg
+                            setTimeout(() => {
+                                statusDiv.style.display = "none";
+                            }, 5000);
+                        } else {
+                            // Error del servidor
+                            response.json().then(data => {
+                                if (Object.hasOwn(data, 'errors')) {
+                                    alert(data["errors"].map(error => error["message"]).join(", "));
+                                } else {
+                                    alert("Oops! There was a problem submitting your form");
+                                }
+                            });
+                            submitBtn.innerHTML = originalBtnText;
+                            submitBtn.disabled = false;
+                        }
+                    }).catch(error => {
+                        alert("Oops! There was a problem submitting your form");
+                        submitBtn.innerHTML = originalBtnText;
+                        submitBtn.disabled = false;
+                    });
+                });
+            }
+
+            // --- 3. TEMA OSCURO ---
+            const toggleBtn = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+            if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
+
+            if(toggleBtn){
+                toggleBtn.addEventListener('click', () => {
+                    if (html.getAttribute('data-theme') === 'dark') {
+                        html.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        html.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
+            }
+
+            // --- 4. ANIMACIONES ---
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) entry.target.classList.add('show');
+                });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.hidden').forEach((el) => observer.observe(el));
+
+            // --- 5. SCROLL SUAVE ---
+            document.querySelectorAll('nav a[href^="#"], .hero-buttons a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(this.getAttribute('href'));
+                    if (targetElement) {
+                        const offsetPosition = targetElement.getBoundingClientRect().top + window.scrollY - 85;
+                        window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+                    }
+                });
+            });
+
+            // --- 6. COPIAR EMAIL ---
+            const emailBtn = document.getElementById('email-copy-btn');
+            if (emailBtn) {
+                emailBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const email = "ashraf.eddounassi.7e9@itb.cat";
+                    navigator.clipboard.writeText(email).then(() => {
+                        const originalContent = emailBtn.innerHTML;
+                        emailBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        emailBtn.style.color = "#4ade80"; 
+                        setTimeout(() => {
+                            emailBtn.innerHTML = originalContent;
+                            emailBtn.style.color = ""; 
+                        }, 2000);
+                    }).catch(err => alert("Email: " + email));
+                });
             }
         });
 
-        // 2. Animación Scroll (Fade Up)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        const hiddenElements = document.querySelectorAll('.hidden');
-        hiddenElements.forEach((el) => observer.observe(el));
-
-        // 3. FIX: Scroll Suave (Solo para enlaces internos con #)
-        document.querySelectorAll('nav a[href^="#"], .hero-buttons a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-
-                if (targetElement) {
-                    const headerOffset = 85;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-
-                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                }
-            });
-        });
-
-        function updateLocationTime() {
-        const timeElement = document.getElementById('world-time');
-        if (timeElement) {
-            const now = new Date();
-            // Forzamos la zona horaria a Europa/Madrid (Barcelona)
-            const options = {
-                timeZone: 'Europe/Madrid',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            };
-            timeElement.textContent = now.toLocaleTimeString('en-GB', options);
-        }
-    }
-
-    // Actualizar cada segundo
-    setInterval(updateLocationTime, 1000);
-    updateLocationTime(); // Ejecutar inmediatamente al cargar
-    // ===== WORLD TIME & DATE WIDGET =====
+        // --- 7. WIDGET HORARIO ---
         function updateWorldWidget() {
             const timeElement = document.getElementById('world-time');
             const dateElement = document.getElementById('world-date');
-
             if (timeElement && dateElement) {
                 const now = new Date();
-                // Opciones para hora (HH:MM:SS)
-                const timeOptions = {
-                    timeZone: 'Europe/Madrid',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                };
-                // Opciones para fecha (DD/MM/YYYY)
-                const dateOptions = {
-                    timeZone: 'Europe/Madrid',
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                };
-
-                timeElement.textContent = now.toLocaleTimeString('en-GB', timeOptions);
-                dateElement.textContent = now.toLocaleDateString('en-GB', dateOptions);
+                timeElement.textContent = now.toLocaleTimeString('en-GB', { timeZone: 'Europe/Madrid', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+                dateElement.textContent = now.toLocaleDateString('en-GB', { timeZone: 'Europe/Madrid', day: '2-digit', month: '2-digit', year: 'numeric' });
             }
         }
-
         setInterval(updateWorldWidget, 1000);
         updateWorldWidget();
-    </script>
 
+        // --- 8. PARALLAX ---
+        document.addEventListener('mousemove', (e) => {
+            const fondo = document.getElementById('fondo-puntos');
+            if (fondo) {
+                const x = (window.innerWidth - e.clientX * 5) / 100;
+                const y = (window.innerHeight - e.clientY * 5) / 100;
+                fondo.style.transform = `translateX(${x * 5}px) translateY(${y * 5}px)`;
+            }
+        });
+    </script>
 </body>
 </html>

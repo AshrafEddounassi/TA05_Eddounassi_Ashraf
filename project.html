@@ -3,162 +3,156 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enterprise Cloud Migration | Ashraf Eddounassi</title>
+    <title>Project Details | Ashraf Eddounassi</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* --- ESTILOS ESPECÍFICOS DE LA PÁGINA --- */
+        .project-detail-header { margin-top: 40px; margin-bottom: 30px; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Fira Code', monospace;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            text-decoration: none;
+        }
+        .back-link:hover { color: var(--accent-color); }
+
+        /* Imagen al final */
+        .detail-hero-img {
+            width: 100%;
+            height: 500px;
+            background-size: cover;
+            background-position: center;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            margin-top: 50px;
+            margin-bottom: 50px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Contenedor General */
+        .detail-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Meta Info (Stack y Botones) -> ESTO SÍ VA CENTRADO */
+        .detail-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 30px;
+            text-align: center;
+        }
+
+        /* --- AQUÍ ESTÁ EL CAMBIO PARA EL TEXTO --- */
+        .detail-description {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            line-height: 1.8;
+
+            /* TRUCO: Justificamos el texto... */
+            text-align: justify;
+
+            /* ...pero limitamos el ancho y centramos el bloque */
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        /* Aseguramos que los títulos dentro de la descripción sigan centrados */
+        .detail-description h3 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .detail-description p { margin-bottom: 20px; }
+
+        /* Bloque de código */
+        .code-block {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin: 30px auto;
+            text-align: left; /* El código siempre a la izquierda */
+            max-width: 100%;
+            overflow-x: auto;
+        }
+    </style>
 </head>
 <body>
 
+    <div id="fondo-puntos"></div>
+
     <header>
         <div class="container header-content">
-            <a href="index.html" class="logo" style="text-decoration: none;">
-                &lt;SysAdmin/&gt;<span>_</span>
-            </a>
-
+            <h1 class="logo">&lt;SysAdmin/&gt;<span>_</span></h1>
             <nav>
-                <a href="index.html" class="btn-nav">
-                    <i class="fas fa-arrow-left"></i> cd ..
-                </a>
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="projects-list.html" class="nav-link active">Projects</a>
+                <a href="index.html#contact" class="btn-nav nav-link">Contact</a>
 
-                <button id="theme-toggle" class="binary-switch" aria-label="Toggle Theme">
+                <button id="theme-toggle" class="binary-switch" aria-label="Toggle Theme" style="margin-left: 20px;">
                     <span class="binary-label">0</span>
                     <span class="binary-label">1</span>
-                    <span class="cursor-block"></span>
+                    <div class="cursor-block"></div>
                 </button>
             </nav>
         </div>
     </header>
 
-    <main>
+    <main class="container">
 
-        <section class="project-hero">
-            <div class="container">
-                <div class="terminal-window large">
-                    <div class="terminal-header">
-                        <div class="terminal-buttons">
-                            <span class="close"></span><span class="minimize"></span><span class="maximize"></span>
-                        </div>
-                        <div class="terminal-title">root@ashraf-server: ~/projects/cloud-migration</div>
-                    </div>
-                    <div class="terminal-body">
-                        <div class="terminal-line">
-                            <span class="prompt-user">root@portfolio:~/projects$</span>
-                            <span class="command">cat description.txt</span>
-                        </div>
-                        <h1 class="project-title">Enterprise Cloud Migration</h1>
-                        <p class="project-subtitle">AWS Infrastructure • Terraform • Automation</p>
-                        <div class="status-badge online">Status: COMPLETED</div>
-                    </div>
-                </div>
+        <div class="project-detail-header">
+            <a href="projects-list.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Archive</a>
+        </div>
+
+        <div id="project-container">
+            <div style="text-align: center; padding: 50px;">
+                <h2 style="font-family: 'Fira Code'">Loading data<span class="cursor-blink">_</span></h2>
             </div>
-        </section>
-
-        <section class="project-details">
-            <div class="container">
-
-                <div class="detail-grid">
-                    <div class="detail-content">
-                        <h2><i class="fas fa-crosshairs"></i> Mission Objective</h2>
-                        <p>
-                            The legacy on-premise infrastructure was experiencing frequent downtime and scalability issues during peak traffic. The goal was to migrate the entire stack to AWS with zero data loss and minimal downtime.
-                        </p>
-
-                        <h2><i class="fas fa-cogs"></i> Execution Strategy</h2>
-                        <p>
-                            We implemented a <strong>Blue/Green deployment strategy</strong>. Using Terraform, we provisioned a completely new VPC environment. The database was replicated using AWS DMS (Database Migration Service) while the application servers were containerized with Docker.
-                        </p>
-
-                        <h3>Key Results:</h3>
-                        <ul class="result-list">
-                            <li><i class="fas fa-check-circle"></i> <strong>99.99% Uptime</strong> achieved post-migration.</li>
-                            <li><i class="fas fa-check-circle"></i> <strong>30% Cost Reduction</strong> via Spot Instances.</li>
-                            <li><i class="fas fa-check-circle"></i> Deployment time reduced from 2 hours to <strong>15 minutes</strong>.</li>
-                        </ul>
-                    </div>
-
-                    <aside class="detail-sidebar">
-                        <div class="sidebar-box">
-                            <h3><i class="fas fa-layer-group"></i> Tech Stack</h3>
-                            <ul class="tech-stack-vertical">
-                                <li><i class="fab fa-aws"></i> AWS (EC2, RDS, S3)</li>
-                                <li><i class="fas fa-code-branch"></i> Terraform (IaC)</li>
-                                <li><i class="fab fa-docker"></i> Docker & K8s</li>
-                                <li><i class="fab fa-linux"></i> RHEL 8</li>
-                                <li><i class="fas fa-shield-alt"></i> WAF & Shield</li>
-                            </ul>
-                        </div>
-
-                        <div class="sidebar-box">
-                            <h3><i class="fas fa-link"></i> Resources</h3>
-                            <a href="#" class="btn-outline full-width">View on GitHub <i class="fab fa-github"></i></a>
-                            <a href="#" class="btn-primary full-width">Live Demo <i class="fas fa-external-link-alt"></i></a>
-                        </div>
-                    </aside>
-                </div>
-
-                <div class="detail-image" style="margin-top: 40px;"> <img src="https://placehold.co/1000x500/0f172a/FFF?text=AWS+Architecture+Diagram" alt="AWS Architecture Diagram">
-                </div>
-
-            </div>
-        </section>
+        </div>
 
     </main>
 
     <footer>
         <div class="container footer-container">
-
             <div class="footer-left">
                 <div class="footer-top">
                     <div class="social-links">
-                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
+                        <a href="https://github.com/AshrafEddounassi" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i> GitHub</a>
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin"></i> LinkedIn</a>
                     </div>
                 </div>
-
                 <p class="copyright">
-                    © 2025 Ashraf Eddounassi — <span class="tech-highlight">sudo reboot</span>
+                    © 2025 Ashraf Eddounassi
                 </p>
-
-                <a href="mailto:ashraf.eddounassi.7e9@itb.cat" class="email-mini">ashraf.eddounassi.7e9@itb.cat</a>
+                <a href="#" id="email-copy-btn" class="email-mini" title="Click to Copy">
+                    <i class="far fa-envelope"></i> ashraf.eddounassi.7e9@itb.cat
+                </a>
             </div>
-
             <div class="footer-right">
                 <div class="earth-widget">
-
                     <div class="earth-container">
-                        <svg class="earth-svg" viewBox="0 0 100 100" fill="none" stroke="currentColor">
-                            <g class="wireframe-lines" opacity="0.4" stroke-width="0.5">
-                                <circle cx="50" cy="50" r="48"/>
-                                <ellipse cx="50" cy="50" rx="48" ry="20"/>
-                                <ellipse cx="50" cy="50" rx="48" ry="35"/>
-                                <ellipse cx="50" cy="50" rx="20" ry="48"/>
-                                <ellipse cx="50" cy="50" rx="35" ry="48"/>
-                                <line x1="50" y1="2" x2="50" y2="98"/>
-                                <line x1="2" y1="50" x2="98" y2="50"/>
-                            </g>
-
-                            <g class="wireframe-dots" fill="currentColor" stroke="none">
-                                <circle cx="50" cy="50" r="2"/>
-                                <circle cx="50" cy="30" r="1.5"/>
-                                <circle cx="50" cy="70" r="1.5"/>
-                                <circle cx="30" cy="50" r="1.5"/>
-                                <circle cx="70" cy="50" r="1.5"/>
-                                <circle cx="36" cy="36" r="1"/>
-                                <circle cx="64" cy="64" r="1"/>
-                                <circle cx="36" cy="64" r="1"/>
-                                <circle cx="64" cy="36" r="1"/>
-                                <circle cx="25" cy="43" r="1"/>
-                                <circle cx="75" cy="57" r="1"/>
-                            </g>
-                        </svg>
+                        <div class="earth-3d"></div>
                         <div class="globe-overlay"></div>
                     </div>
-
                     <div class="location-data">
                         <span class="loc-name"><i class="fas fa-map-marker-alt"></i> Barcelona, ES</span>
                         <span class="loc-time" id="world-time">--:--:--</span>
@@ -166,107 +160,164 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </footer>
 
     <script>
-        // 1. Lógica Modo Oscuro
-        const toggleBtn = document.getElementById('theme-toggle');
-        const html = document.documentElement;
-        if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
+        // 1. BASE DE DATOS DE PROYECTOS
+        const projectsData = {
+            "01": {
+                title: "Professional Web Development",
+                subtitle: "Frontend Architecture / UX Design",
+                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                description: `
+                    <p>This project involved the complete design and development of a modern, responsive web portal tailored for a corporate client. The main goal was to improve User Experience (UX) and accessibility scores compared to their previous legacy system.</p>
+                    <p>Key technical challenges included optimizing load times for mobile devices and implementing a strict Content Security Policy (CSP). The result was a 40% increase in user retention and a sub-second First Contentful Paint.</p>
+                    <p>We utilized a component-based architecture to ensure scalability and ease of maintenance for future updates.</p>
+                `,
+                tech: [
+                    { icon: "fab fa-html5", name: "HTML5" },
+                    { icon: "fab fa-css3-alt", name: "CSS3" },
+                    { icon: "fab fa-js", name: "JavaScript ES6+" },
+                    { icon: "fas fa-mobile-alt", name: "Responsive Design" }
+                ],
+                links: {
+                    demo: null,
+                    repo: "https://github.com/AshrafEddounassi/TA05_Eddounassi_Ashraf"
+                }
+            },
+            "02": {
+                title: "Python CLI Issue Manager",
+                subtitle: "Automation / Data Processing",
+                image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80",
+                description: `
+                    <p>An internal automation tool designed to process bulk incident forms exported from legacy ticketing systems. The tool ingests messy CSV data, sanitizes it, and converts it into structured XML/JSON formats for further processing.</p>
+                    <p>The system features a command-line interface (CLI) built with Python's Argparse library, allowing SysAdmins to filter records by date, severity, or department instantly.</p>
+                    <div class="code-block">$ python manager.py --input data.csv --export-json --filter "severity=high"</div>
+                    <p>This automated solution reduced the weekly reporting time from 4 hours to just 30 seconds, improving the overall efficiency of the IT department significantly.</p>
+                `,
+                tech: [
+                    { icon: "fab fa-python", name: "Python 3.9" },
+                    { icon: "fas fa-file-csv", name: "Pandas / CSV" },
+                    { icon: "fas fa-database", name: "JSON Export" },
+                    { icon: "fas fa-terminal", name: "CLI / Bash" }
+                ],
+                links: {
+                    demo: null,
+                    repo: "https://github.com/AshrafEddounassi/GP04---TA04-Py-CSV-XML-JSON"
+                }
+            }
+        };
 
-        toggleBtn.addEventListener('click', () => {
-            if (html.getAttribute('data-theme') === 'dark') {
-                html.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
+        document.addEventListener('DOMContentLoaded', () => {
+            // A. CARGAR DATOS
+            const params = new URLSearchParams(window.location.search);
+            const projectId = params.get('id');
+            const container = document.getElementById('project-container');
+
+            if (projectId && projectsData[projectId]) {
+                const project = projectsData[projectId];
+
+                const techHtml = project.tech.map(t =>
+                    `<li><i class="${t.icon}"></i> ${t.name}</li>`
+                ).join('');
+
+                let linksHtml = '';
+                if(project.links.demo) linksHtml += `<a href="${project.links.demo}" class="btn btn-primary" target="_blank">Live Demo</a>`;
+                if(project.links.repo) linksHtml += `<a href="${project.links.repo}" class="btn btn-outline" target="_blank">View Code on GitHub</a>`;
+
+                container.innerHTML = `
+                    <div style="text-align: center; margin-bottom: 40px;">
+                        <h1 class="section-title" style="border:none; padding:0; display:block; margin-bottom: 10px;">${project.title}</h1>
+                        <p class="subtitle" style="text-align: center; margin-top: 5px;">${project.subtitle}</p>
+                    </div>
+
+                    <div class="detail-content">
+                        <div class="detail-meta">
+                            <div>
+                                <h4 style="margin-bottom:15px; color:var(--text-light);">Technology Stack</h4>
+                                <ul class="tech-stack" style="justify-content: center;">${techHtml}</ul>
+                            </div>
+                            <div style="display:flex; gap:15px; justify-content:center;">
+                                ${linksHtml}
+                            </div>
+                        </div>
+
+                        <div class="detail-description">
+                            <h3 style="color:var(--primary-color); margin-bottom:20px;">Project Overview</h3>
+                            ${project.description}
+                        </div>
+                    </div>
+
+                    <div class="detail-hero-img" style="background-image: url('${project.image}');"></div>
+                `;
             } else {
-                html.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 100px 0;">
+                        <h2 style="font-size: 3rem; color: var(--accent-color);">404</h2>
+                        <p>Project not found in the database.</p>
+                        <br>
+                        <a href="projects-list.html" class="btn btn-primary">Return to Archive</a>
+                    </div>
+                `;
+            }
+
+            // B. TEMA OSCURO
+            const html = document.documentElement;
+            if (localStorage.getItem('theme') === 'dark') html.setAttribute('data-theme', 'dark');
+
+            const toggleBtn = document.getElementById('theme-toggle');
+            if(toggleBtn){
+                toggleBtn.addEventListener('click', () => {
+                    if (html.getAttribute('data-theme') === 'dark') {
+                        html.removeAttribute('data-theme');
+                        localStorage.setItem('theme', 'light');
+                    } else {
+                        html.setAttribute('data-theme', 'dark');
+                        localStorage.setItem('theme', 'dark');
+                    }
+                });
+            }
+
+            // C. COPIAR EMAIL
+            const emailBtn = document.getElementById('email-copy-btn');
+            if (emailBtn) {
+                emailBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const email = "ashraf.eddounassi.7e9@itb.cat";
+
+                    navigator.clipboard.writeText(email).then(() => {
+                        const originalContent = emailBtn.innerHTML;
+                        emailBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        emailBtn.style.color = "#4ade80";
+                        setTimeout(() => {
+                            emailBtn.innerHTML = originalContent;
+                            emailBtn.style.color = "";
+                        }, 2000);
+                    }).catch(err => {
+                        alert("Email: " + email);
+                    });
+                });
             }
         });
 
-        // 2. Animación Scroll (Fade Up)
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                }
-            });
-        }, { threshold: 0.1 });
-
-        const hiddenElements = document.querySelectorAll('.hidden');
-        hiddenElements.forEach((el) => observer.observe(el));
-
-        // 3. FIX: Scroll Suave (Solo para enlaces internos con #)
-        document.querySelectorAll('nav a[href^="#"], .hero-buttons a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-
-                if (targetElement) {
-                    const headerOffset = 85;
-                    const elementPosition = targetElement.getBoundingClientRect().top;
-
-                    const offsetPosition = elementPosition + window.scrollY - headerOffset;
-
-                    window.scrollTo({
-                        top: offsetPosition,
-                        behavior: "smooth"
-                    });
-                }
-            });
-        });
-
-        function updateLocationTime() {
-        const timeElement = document.getElementById('world-time');
-        if (timeElement) {
-            const now = new Date();
-            // Forzamos la zona horaria a Europa/Madrid (Barcelona)
-            const options = {
-                timeZone: 'Europe/Madrid',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            };
-            timeElement.textContent = now.toLocaleTimeString('en-GB', options);
-        }
-    }
-
-    // Actualizar cada segundo
-    setInterval(updateLocationTime, 1000);
-    updateLocationTime(); // Ejecutar inmediatamente al cargar
-    // ===== WORLD TIME & DATE WIDGET =====
+        // D. RELOJ FOOTER
         function updateWorldWidget() {
             const timeElement = document.getElementById('world-time');
             const dateElement = document.getElementById('world-date');
 
             if (timeElement && dateElement) {
                 const now = new Date();
-                // Opciones para hora (HH:MM:SS)
-                const timeOptions = {
+                timeElement.textContent = now.toLocaleTimeString('en-GB', {
                     timeZone: 'Europe/Madrid',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                    hour12: false
-                };
-                // Opciones para fecha (DD/MM/YYYY)
-                const dateOptions = {
+                    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+                });
+                dateElement.textContent = now.toLocaleDateString('en-GB', {
                     timeZone: 'Europe/Madrid',
-                    day: '2-digit',
-                    month: '2-digit',
-                    year: 'numeric'
-                };
-
-                timeElement.textContent = now.toLocaleTimeString('en-GB', timeOptions);
-                dateElement.textContent = now.toLocaleDateString('en-GB', dateOptions);
+                    day: '2-digit', month: '2-digit', year: 'numeric'
+                });
             }
         }
-
         setInterval(updateWorldWidget, 1000);
         updateWorldWidget();
     </script>

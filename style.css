@@ -12,14 +12,7 @@
     --tech-badge-bg: #e0f2fe;
     --tech-badge-text: #0369a1;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-
-    --accent-color: #3b82f6;
-    --accent-color-rgb: 59, 130, 246; /* NUEVO: Versión RGB para efectos */
-
-    /* Variable recuperada que faltaba */
     --border-radius: 8px;
-
-    /* Decoración */
     --dot-color: #cbd5e1;
 }
 
@@ -36,987 +29,272 @@
     --tech-badge-bg: #0f172a;
     --tech-badge-text: #38bdf8;
     --shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.5);
-    --dot-color: #1e293b;
-
-    --accent-color: #60a5fa;
-    --accent-color-rgb: 96, 165, 250; /* NUEVO: Versión RGB oscura */
+    --dot-color: rgba(255, 255, 255, 0.15);
 }
 
 /* Transiciones globales */
-body, header, .project-card, .tech-highlight, .btn-outline, footer, .terminal-window {
+body, header, .project-card, .tech-highlight, .btn-outline, footer, .terminal-window, .lang-dropdown-menu, .lang-btn {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ===== RESET & SCROLL ===== */
-*, *::before, *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+/* ===== RESET & LAYOUT ===== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html {
-    scroll-behavior: smooth;
-    scroll-padding-top: 85px; /* Compensa el header fijo */
-}
+html { scroll-behavior: smooth; scroll-padding-top: 85px; }
 
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-color);
-    background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
-    background-size: 30px 30px;
     color: var(--text-main);
     line-height: 1.7;
+    overflow-x: hidden;
+}
+
+/* Fondo de puntos */
+#fondo-puntos {
+    position: fixed;
+    top: -50%; left: -50%; width: 200%; height: 200%;
+    z-index: -1; pointer-events: none;
+    background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+    background-size: 30px 30px;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 a { text-decoration: none; color: inherit; }
 img { max-width: 100%; display: block; }
 
-/* ===== ANIMACIONES (Fade Up) ===== */
-.hidden {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s ease-out;
-}
-
-.show {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* Animaciones */
+.hidden { opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+.show { opacity: 1; transform: translateY(0); }
 
 /* ===== HEADER ===== */
 header {
     background: var(--header-bg);
     padding: 15px 0;
-    position: sticky;
-    top: 0;
+    position: sticky; top: 0;
     z-index: 100;
     border-bottom: 1px solid var(--border-color);
     backdrop-filter: blur(8px);
 }
 
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.header-content { display: flex; justify-content: space-between; align-items: center; }
 
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* LOGO FIX */
 .logo {
-    font-size: 24px;
-    font-weight: 700;
-    color: var(--primary-color);
+    font-size: 24px; font-weight: 700; color: var(--primary-color);
     font-family: 'Fira Code', monospace;
-    display: flex;
-    align-items: center;
-    font-variant-ligatures: none;
-    letter-spacing: -1px;
-    margin: 0;
+    display: flex; align-items: center; letter-spacing: -1px; margin: 0;
 }
-
-.logo span {
-    color: var(--accent-color);
-    animation: blink 1s infinite;
-    margin-left: 2px;
-    line-height: 1;
-}
+.logo span { color: var(--accent-color); animation: blink 1s infinite; margin-left: 2px; }
 
 nav { display: flex; align-items: center; }
 
 nav a {
-    margin-left: 30px;
-    font-weight: 500;
-    font-size: 15px;
-    color: var(--text-main);
-    transition: color 0.3s;
-    position: relative;
-    cursor: pointer;
+    margin-left: 30px; font-weight: 500; font-size: 15px;
+    color: var(--text-main); position: relative;
 }
-
-nav a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -4px;
-    left: 0;
-    background-color: var(--accent-color);
-    transition: width 0.3s;
-}
-nav a:hover::after { width: 100%; }
 nav a:hover { color: var(--accent-color); }
 
 .btn-nav {
-    background: var(--primary-color);
-    color: var(--bg-color) !important;
-    padding: 8px 20px;
-    border-radius: 4px;
+    background: var(--primary-color); color: var(--bg-color) !important;
+    padding: 8px 20px; border-radius: 4px;
 }
-.btn-nav::after { display: none; }
-.btn-nav:hover {
-    background: var(--accent-color);
-    color: white !important;
-}
+.btn-nav:hover { background: var(--accent-color); color: white !important; }
 
-/* ===== INTERRUPTOR BINARIO ===== */
+/* ===== TRADUCTOR & INTERRUPTOR ===== */
+/* Ocultar widget Google feo */
+#google_translate_element, .goog-te-banner-frame, .goog-logo-link, body > div.skiptranslate { display: none !important; }
+body { top: 0 !important; }
+
+.lang-dropdown-container { position: relative; margin-left: 20px; }
+.lang-btn {
+    background: transparent; border: 1px solid var(--border-color);
+    color: var(--text-main); padding: 6px 12px; border-radius: 4px;
+    cursor: pointer; display: flex; align-items: center; gap: 8px;
+    font-family: 'Fira Code', monospace; font-size: 14px;
+}
+.lang-btn:hover { border-color: var(--accent-color); color: var(--accent-color); background: var(--card-bg); }
+
+.lang-dropdown-menu {
+    position: absolute; top: 110%; right: 0;
+    background: var(--card-bg); border: 1px solid var(--border-color);
+    border-radius: 6px; padding: 5px; display: none;
+    flex-direction: column; min-width: 140px;
+    box-shadow: var(--shadow); z-index: 101;
+}
+.lang-dropdown-container:hover .lang-dropdown-menu { display: flex; }
+.lang-dropdown-menu a {
+    padding: 8px 12px; font-size: 14px; font-family: 'Fira Code', monospace;
+    border-radius: 4px; margin: 0; display: flex; align-items: center; gap: 8px;
+}
+.lang-dropdown-menu a:hover { background: var(--tech-badge-bg); color: var(--accent-color); }
+.flag-icon { font-style: normal; font-size: 1.1rem; }
+
+/* Interruptor Binario */
 .binary-switch {
-    background: var(--text-main);
-    border: none;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5px;
-    width: 64px;
-    height: 32px;
-    position: relative;
-    cursor: pointer;
-    margin-left: 25px;
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
-    overflow: hidden;
+    background: var(--text-main); border: none; border-radius: 4px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 5px; width: 64px; height: 32px; position: relative;
+    cursor: pointer; margin-left: 20px; overflow: hidden;
 }
-
 .binary-label {
-    font-family: 'Fira Code', monospace;
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--bg-color);
-    z-index: 1;
-    width: 50%;
-    text-align: center;
-    line-height: 32px;
-    user-select: none;
+    font-family: 'Fira Code', monospace; font-size: 14px; font-weight: 700;
+    color: var(--bg-color); z-index: 1; width: 50%; text-align: center; line-height: 32px; user-select: none;
 }
-
 .cursor-block {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    width: 24px;
-    height: 24px;
-    background-color: var(--accent-color);
-    border-radius: 2px;
-    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    z-index: 0;
-    box-shadow: 0 0 8px var(--accent-color);
+    position: absolute; top: 4px; left: 4px; width: 24px; height: 24px;
+    background-color: var(--accent-color); border-radius: 2px;
+    transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); z-index: 0;
 }
+[data-theme="dark"] .cursor-block { transform: translateX(32px); background-color: #22c55e; }
 
-[data-theme="dark"] .cursor-block {
-    transform: translateX(32px);
-    background-color: #22c55e;
-    box-shadow: 0 0 8px #22c55e;
-}
-
-/* ===== HERO SECTION ===== */
-.hero-section {
-    padding: 100px 20px;
-    text-align: center;
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-}
-
+/* ===== SECCIONES ===== */
+.hero-section { padding: 100px 20px; text-align: center; max-width: 800px; margin: 0 auto; position: relative; }
 .binary-bg {
-    position: absolute;
-    top: 20px;
-    right: 0;
-    font-family: 'Fira Code', monospace;
-    color: var(--accent-color);
-    opacity: 0.05;
-    font-size: 5rem;
-    font-weight: bold;
-    z-index: -1;
-    pointer-events: none;
+    position: absolute; top: 20px; right: 0; font-family: 'Fira Code', monospace;
+    color: var(--accent-color); opacity: 0.05; font-size: 5rem; font-weight: bold;
+    z-index: -1; pointer-events: none;
 }
-
 .subtitle {
-    display: inline-block;
-    background: var(--tech-badge-bg);
-    color: var(--accent-color);
-    padding: 5px 15px;
-    border-radius: 50px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    font-size: 13px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    display: inline-block; background: var(--tech-badge-bg); color: var(--accent-color);
+    padding: 5px 15px; border-radius: 50px; font-weight: 600; margin-bottom: 20px;
+    font-size: 13px; text-transform: uppercase; letter-spacing: 1px;
 }
-
 .tech-highlight {
-    font-weight: 700;
-    color: var(--primary-color);
-    font-family: 'Fira Code', monospace;
-    background: var(--border-color);
-    padding: 2px 8px;
-    border-radius: 4px;
-    display: inline-block;
+    font-weight: 700; color: var(--primary-color); font-family: 'Fira Code', monospace;
+    background: var(--border-color); padding: 2px 8px; border-radius: 4px; display: inline-block;
 }
-
 .cursor-blink { color: var(--accent-color); animation: blink 1s infinite; }
 @keyframes blink { 50% { opacity: 0; } }
 
-.hero-content h2 {
-    font-size: 3.5rem;
-    line-height: 1.2;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    letter-spacing: -1px;
-}
-
-.hero-content p {
-    font-size: 1.2rem;
-    color: var(--text-light);
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
+.hero-content h2 { font-size: 3.5rem; line-height: 1.2; color: var(--primary-color); margin-bottom: 20px; }
+.hero-content p { font-size: 1.2rem; color: var(--text-light); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto; }
 .hero-buttons { display: flex; gap: 15px; justify-content: center; }
 
-.btn {
-    padding: 14px 35px;
-    border-radius: 6px;
-    font-weight: 600;
-    transition: all 0.2s;
-}
+.btn { padding: 14px 35px; border-radius: 6px; font-weight: 600; transition: all 0.2s; }
+.btn-primary { background: var(--accent-color); color: white; border: 2px solid var(--accent-color); }
+.btn-primary:hover { background: var(--primary-color); border-color: var(--primary-color); transform: translateY(-2px); }
+.btn-outline { border: 2px solid var(--text-light); color: var(--text-main); background: transparent; }
+.btn-outline:hover { border-color: var(--text-main); background: var(--card-bg); transform: translateY(-2px); }
 
-.btn-primary {
-    background: var(--accent-color);
-    color: white;
-    border: 2px solid var(--accent-color);
-}
-.btn-primary:hover {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
-    transform: translateY(-2px);
-}
-
-.btn-outline {
-    border: 2px solid var(--text-light);
-    color: var(--text-main);
-    background: transparent;
-}
-.btn-outline:hover {
-    border-color: var(--text-main);
-    background: var(--card-bg);
-    transform: translateY(-2px);
-}
-
-/* ===== PROJECTS SECTION ===== */
-.projects-section {
-    max-width: 1000px;
-    margin: 80px auto;
-    padding: 0 20px;
-}
-
-.section-title {
-    font-size: 2rem;
-    margin-bottom: 60px;
-    color: var(--primary-color);
-    text-align: left;
-    border-left: 5px solid var(--accent-color);
-    padding-left: 20px;
-}
+/* PROYECTOS */
+.projects-section { max-width: 1000px; margin: 80px auto; padding: 0 20px; }
+.section-title { font-size: 2rem; margin-bottom: 60px; color: var(--primary-color); border-left: 5px solid var(--accent-color); padding-left: 20px; }
 
 .project-card {
-    display: flex;
-    align-items: stretch;
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    margin-bottom: 80px;
-    overflow: hidden;
-    border: 1px solid var(--border-color);
+    display: flex; align-items: stretch; background: var(--card-bg);
+    border-radius: var(--border-radius); box-shadow: var(--shadow);
+    margin-bottom: 80px; overflow: hidden; border: 1px solid var(--border-color);
 }
-
 .project-image { flex: 1; min-height: 300px; }
-.project-image img { width: 100%; height: 100%; object-fit: cover; }
-
-.project-info {
-    flex: 1.2;
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.project-info h3 {
-    font-size: 1.5rem;
-    margin-bottom: 15px;
-    color: var(--primary-color);
-    font-weight: 700;
-}
-
-.project-info p {
-    color: var(--text-light);
-    margin-bottom: 25px;
-    font-size: 1rem;
-}
-
-.tech-stack {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 30px;
-}
-
+.project-info { flex: 1.2; padding: 40px; display: flex; flex-direction: column; justify-content: center; }
+.project-info h3 { font-size: 1.5rem; margin-bottom: 15px; color: var(--primary-color); font-weight: 700; }
+.project-info p { color: var(--text-light); margin-bottom: 25px; font-size: 1rem; }
+.tech-stack { list-style: none; display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
 .tech-stack li {
-    background: var(--tech-badge-bg);
-    color: var(--tech-badge-text);
-    padding: 6px 14px;
-    border-radius: 50px;
-    font-size: 13px;
-    font-family: 'Fira Code', monospace;
-    font-weight: 500;
-    border: 1px solid transparent;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    cursor: default;
+    background: var(--tech-badge-bg); color: var(--tech-badge-text); padding: 6px 14px;
+    border-radius: 50px; font-size: 13px; font-family: 'Fira Code', monospace;
+    font-weight: 500; transition: all 0.3s;
 }
-
-.tech-stack li:hover {
-    background: var(--accent-color);
-    color: white;
-    transform: translateY(-3px) scale(1.05);
-    box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
-}
-
-.btn-link {
-    font-weight: 600;
-    color: var(--accent-color);
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 10px;
-}
+.tech-stack li:hover { background: var(--accent-color); color: white; transform: translateY(-3px); }
+.btn-link { font-weight: 600; color: var(--accent-color); display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; }
 .btn-link:hover { text-decoration: underline; }
-
 .project-card.reverse { flex-direction: row-reverse; }
 
-/* ===== CONTACT TERMINAL ===== */
-.contact-section {
-    padding: 60px 20px;
-    max-width: 900px;
-    margin: 0 auto 60px;
-}
-
+/* CONTACTO */
+.contact-section { padding: 60px 20px; max-width: 900px; margin: 0 auto 60px; }
 .terminal-window {
-    background-color: #1e1e1e;
-    border-radius: 10px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
-    overflow: hidden;
-    font-family: 'Fira Code', monospace;
-    border: 1px solid #333;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1e1e1e; border-radius: 10px; box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    overflow: hidden; font-family: 'Fira Code', monospace; border: 1px solid #333;
 }
-.terminal-window:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-}
-
-.terminal-header {
-    background-color: #2d2d2d;
-    padding: 10px 15px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #333;
-    position: relative;
-}
-
+.terminal-window:hover { transform: translateY(-5px); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+.terminal-header { background-color: #2d2d2d; padding: 10px 15px; display: flex; align-items: center; border-bottom: 1px solid #333; position: relative; }
 .terminal-buttons { display: flex; gap: 8px; }
 .terminal-buttons span { width: 12px; height: 12px; border-radius: 50%; }
-.close { background-color: #ff5f56; }
-.minimize { background-color: #ffbd2e; }
-.maximize { background-color: #27c93f; }
-
-.terminal-title {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #999;
-    font-size: 14px;
-    font-weight: 500;
-}
-
+.close { background-color: #ff5f56; } .minimize { background-color: #ffbd2e; } .maximize { background-color: #27c93f; }
+.terminal-title { position: absolute; left: 50%; transform: translateX(-50%); color: #999; font-size: 14px; }
 .terminal-body { padding: 30px; color: #d4d4d4; }
 .terminal-line { margin-bottom: 20px; display: flex; flex-wrap: wrap; align-items: center; }
-
 .prompt-user { color: #4ade80; margin-right: 10px; font-weight: bold; }
 .command { color: #60a5fa; margin-right: 10px; }
-
 .cmd-input {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #444;
-    color: #fff;
-    font-family: 'Fira Code', monospace;
-    font-size: 1rem;
-    flex: 1;
-    padding: 5px;
-    outline: none;
-    min-width: 200px;
+    background: transparent; border: none; border-bottom: 1px solid #444; color: #fff;
+    font-family: 'Fira Code', monospace; font-size: 1rem; flex: 1; padding: 5px; outline: none; min-width: 200px;
 }
 .cmd-input:focus { border-bottom: 1px solid #4ade80; }
-.cmd-input::placeholder { color: #555; font-style: italic; }
-
 .btn-terminal {
-    background: transparent;
-    border: 1px solid #4ade80;
-    color: #4ade80;
-    padding: 8px 20px;
-    font-family: 'Fira Code', monospace;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    background: transparent; border: 1px solid #4ade80; color: #4ade80; padding: 8px 20px;
+    font-family: 'Fira Code', monospace; font-weight: bold; cursor: pointer; border-radius: 4px;
+    display: flex; align-items: center; gap: 10px; transition: all 0.3s;
 }
-.btn-terminal:hover {
-    background: rgba(74, 222, 128, 0.1);
-    box-shadow: 0 0 15px rgba(74, 222, 128, 0.4);
-}
+.btn-terminal:hover { background: rgba(74, 222, 128, 0.1); box-shadow: 0 0 15px rgba(74, 222, 128, 0.4); }
 
-/* ===== PROJECT DETAILS PAGE ===== */
-.project-hero { padding: 60px 20px 40px; }
-.terminal-window.large { max-width: 100%; margin-bottom: 20px; }
-.project-title { font-size: 2.5rem; color: #fff; margin: 10px 0; }
-.project-subtitle { color: #a3a3a3; font-family: 'Fira Code', monospace; margin-bottom: 20px; }
+/* FOOTER */
+footer { background: var(--primary-color); color: var(--bg-color); padding: 40px 20px; border-top: 1px solid var(--border-color); margin-top: auto; }
+[data-theme="dark"] footer { background: #0b1120; color: var(--text-light); }
+.footer-container { display: flex; justify-content: space-between; align-items: center; max-width: 1100px; margin: 0 auto; gap: 20px; }
+.footer-left { text-align: left; display: flex; flex-direction: column; gap: 15px; }
+.footer-top { display: flex; align-items: center; gap: 20px; }
+.social-links a { font-size: 1.2rem; color: inherit; transition: color 0.2s; margin-right: 15px; }
+.social-links a:hover { color: var(--accent-color); }
+.copyright { opacity: 0.7; font-family: 'Fira Code', monospace; font-size: 13px; margin: 0; }
+.email-mini { font-size: 0.9rem; color: var(--accent-color); text-decoration: none; font-weight: 600; cursor: pointer; }
 
-.status-badge {
-    display: inline-block;
-    padding: 5px 12px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 700;
-    font-family: 'Fira Code', monospace;
-    text-transform: uppercase;
-}
-.status-badge.online {
-    background: rgba(34, 197, 94, 0.2);
-    color: #4ade80;
-    border: 1px solid #4ade80;
-}
-
-.detail-image {
-    margin-bottom: 50px;
-    border-radius: var(--border-radius);
-    overflow: hidden;
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-}
-
-.detail-grid {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 50px;
-    margin-bottom: 80px;
-}
-
-.detail-content h2 {
-    font-size: 1.8rem;
-    color: var(--primary-color);
-    margin-bottom: 20px;
-    margin-top: 40px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.detail-content h2:first-child { margin-top: 0; }
-.detail-content p { margin-bottom: 20px; color: var(--text-light); font-size: 1.1rem; }
-
-.result-list {
-    list-style: none;
-    background: var(--bg-color);
-    padding: 20px;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-}
-.result-list li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-.result-list i { color: var(--accent-color); }
-
-.detail-sidebar { display: flex; flex-direction: column; gap: 30px; }
-.sidebar-box {
-    background: var(--card-bg);
-    padding: 25px;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow);
-}
-.sidebar-box h3 {
-    font-size: 1.2rem;
-    margin-bottom: 20px;
-    color: var(--primary-color);
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 10px;
-}
-
-.tech-stack-vertical { list-style: none; }
-.tech-stack-vertical li {
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-main);
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9rem;
-}
-.tech-stack-vertical li:last-child { border-bottom: none; }
-.tech-stack-vertical i { color: var(--accent-color); width: 20px; }
-
-.full-width { width: 100%; display: block; text-align: center; margin-bottom: 10px; }
-
-/* ===== FOOTER ===== */
-/* =========================================
-   10. FOOTER (Fixed Layout & Earth Widget)
-   ========================================= */
-
-footer {
-    background: var(--primary-color);
-    color: var(--bg-color);
-    padding: 40px 20px;
-    border-top: 1px solid var(--border-color);
-    margin-top: auto; /* Empuja el footer al fondo si hay poco contenido */
-}
-
-[data-theme="dark"] footer {
-    background: #0b1120;
-    color: var(--text-light);
-}
-
-/* --- ESTRUCTURA PRINCIPAL (La clave para la alineación) --- */
-/* Esta clase pone la info a la izquierda y la Tierra a la derecha */
-.footer-container {
-    display: flex;
-    justify-content: space-between; /* Separa los elementos al máximo */
-    align-items: center; /* Centra verticalmente */
-    max-width: 1100px;
-    margin: 0 auto;
-    gap: 20px;
-}
-
-/* --- SECCIÓN IZQUIERDA (Info y Redes) --- */
-.footer-left {
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.footer-top {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.social-links {
-    display: flex;
-    gap: 15px;
-}
-
-.social-links a {
-    font-size: 1.2rem;
-    color: inherit;
-    transition: color 0.2s;
-}
-
-.social-links a:hover {
-    color: var(--accent-color);
-}
-
-.copyright {
-    opacity: 0.7;
-    font-family: 'Fira Code', monospace;
-    font-size: 13px;
-    margin: 0;
-}
-
-.email-mini {
-    font-size: 0.9rem;
-    color: var(--accent-color);
-    text-decoration: none;
-    font-weight: 600;
-}
-
-/* --- SECCIÓN DERECHA (Widget Tierra) --- */
-.footer-right {
-    text-align: right; /* Alinea el texto interno a la derecha */
-}
-
-.earth-widget {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end; /* Asegura que el contenido vaya a la derecha */
-    gap: 15px;
-    font-family: 'Fira Code', monospace;
-}
-
-/* Contenedor esférico */
+/* WIDGET TIERRA */
+.earth-widget { display: flex; align-items: center; justify-content: flex-end; gap: 15px; font-family: 'Fira Code', monospace; }
 .earth-container {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-    position: relative;
-    background-color: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--border-color);
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-    flex-shrink: 0;
+    width: 60px; height: 60px; position: relative; border-radius: 50%;
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.6); background-color: #1e293b;
 }
-
-/* SVG del Mapa (Animado) */
-.earth-svg {
-    width: 240%;
-    height: 100%;
-    color: var(--accent-color);
-    animation: rotateGlobe 15s linear infinite;
-    display: block;
+.earth-3d {
+    width: 100%; height: 100%; border-radius: 50%;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Blue_Marble_2002.png/1024px-Blue_Marble_2002.png');
+    background-repeat: repeat-x; background-size: auto 100%;
+    box-shadow: inset 15px 0 20px -5px rgba(0,0,0,0.7), inset -5px 0 10px -2px rgba(255,255,255,0.2);
+    animation: rotateEarth 20s linear infinite; transition: filter 0.3s ease;
 }
-
-@keyframes rotateGlobe {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-}
-
-/* Brillo sobre la tierra */
+[data-theme="light"] .earth-3d { filter: brightness(1.05); }
+[data-theme="dark"] .earth-3d { filter: brightness(1.2) contrast(1.1); }
+@keyframes rotateEarth { 0% { background-position: 0 0; } 100% { background-position: -200% 0; } }
 .globe-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.1), transparent 60%);
-    pointer-events: none;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.25), transparent 60%); pointer-events: none; z-index: 2;
 }
-
-/* Datos de Ubicación y Hora */
-.location-data {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Alinea los textos a la derecha */
-    font-size: 0.8rem;
-    color: var(--text-light);
-    line-height: 1.4;
-}
-
-.loc-name {
-    font-weight: bold;
-    color: var(--text-main);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-/* --- RESPONSIVE --- */
-@media (max-width: 768px) {
-    .footer-container {
-        flex-direction: column; /* En móvil, uno debajo del otro */
-        text-align: center;
-        gap: 30px;
-    }
-
-    .footer-left {
-        align-items: center; /* CentrarTodo en móvil */
-        text-align: center;
-    }
-
-    .footer-top {
-        justify-content: center;
-    }
-
-    .footer-right {
-        text-align: center;
-        width: 100%;
-    }
-
-    .earth-widget {
-        justify-content: center; /* Centrar widget en móvil */
-        flex-direction: row-reverse; /* Poner la tierra a la izquierda del texto en móvil si se ve mejor */
-    }
-
-    .location-data {
-        align-items: flex-start; /* Alinear texto a la izquierda en relación a la tierra */
-        text-align: left;
-    }
-}
+.location-data { display: flex; flex-direction: column; align-items: flex-end; font-size: 0.8rem; color: var(--text-light); line-height: 1.4; }
+.loc-name { font-weight: bold; color: var(--text-main); display: flex; align-items: center; gap: 6px; }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
-    .hero-content h2 { font-size: 2.5rem; }
-    .project-card, .project-card.reverse { flex-direction: column; }
-    .project-image { min-height: 250px; flex: none; }
-    .header-content { flex-direction: column; gap: 15px; }
-    .binary-switch { margin-left: 0; margin-top: 10px; }
-    nav { flex-direction: column; gap: 10px; }
-    nav a { margin: 0; }
-    .terminal-line { flex-direction: column; align-items: flex-start; }
-    .prompt-user { margin-bottom: 5px; font-size: 0.9rem; }
-    .cmd-input { width: 100%; }
-    .footer-top { flex-direction: column; justify-content: center; }
-    .detail-grid { grid-template-columns: 1fr; gap: 30px; }
-    .project-title { font-size: 1.8rem; }
-}
-/* =========================================
-   ESTILOS PARA LA LISTA DE PROYECTOS (ARCHIVE)
-   ========================================= */
+    .header-content { flex-direction: column; gap: 15px; padding-bottom: 5px; }
+    nav { flex-wrap: wrap; justify-content: center; gap: 15px; width: 100%; }
+    nav a { margin: 0; font-size: 14px; padding: 5px; }
+    .binary-switch { margin-left: 10px; }
+    
+    /* Hero */
+    .hero-section { padding: 60px 20px; }
+    .hero-content h2 { font-size: 2.2rem; }
+    .binary-bg { font-size: 3rem; right: 50%; transform: translateX(50%); top: 0; }
+    
+    /* Proyectos */
+    .projects-section { margin: 40px auto; }
+    .project-card, .project-card.reverse { flex-direction: column; margin-bottom: 40px; }
+    .project-image { width: 100%; min-height: 220px; flex: none; }
+    .project-info { padding: 25px 20px; }
 
-/* Sección Principal */
-.archive-section {
-    padding: 60px 20px;
-    max-width: 900px;
-    margin: 0 auto;
-}
+    /* Contacto */
+    .terminal-body { padding: 20px; }
+    .terminal-line { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .cmd-input, .cmd-input:focus { width: 100%; background: rgba(255, 255, 255, 0.05); padding: 10px; border-radius: 4px; }
 
-/* Cabecera de la lista */
-.archive-header {
-    text-align: left;
-    margin-bottom: 50px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 20px;
-}
-
-.archive-header h1 {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 10px;
-    font-family: 'Fira Code', monospace;
-    letter-spacing: -1px;
-}
-
-.archive-header .subtitle {
-    font-size: 1rem;
-    color: var(--text-light);
-    font-family: 'Poppins', sans-serif;
-    text-transform: none; /* Reset del estilo subtitle global si es necesario */
-    background: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Grid de la lista */
-.archive-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 0; /* Usamos bordes para separar, no gap */
-}
-
-/* --- TARJETA DE PROYECTO (LISTA) --- */
-.archive-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; /* Centrado vertical */
-    padding: 30px 0;
-    border-bottom: 1px solid var(--border-color);
-    gap: 30px;
-    transition: transform 0.2s ease, border-color 0.2s ease;
-}
-
-/* Efecto Hover: Desplazamiento lateral estilo Terminal */
-.archive-card:hover {
-    transform: translateX(10px);
-    border-bottom-color: var(--accent-color);
-}
-
-/* Quitar borde al último elemento */
-.archive-card:last-child {
-    border-bottom: none;
-}
-
-/* Contenido de Texto (Izquierda) */
-.archive-content {
-    flex: 1; /* Ocupa el espacio restante */
-}
-
-.archive-content h3 {
-    font-size: 1.5rem;
-    margin-bottom: 10px;
-    font-family: 'Fira Code', monospace;
-}
-
-.archive-content h3 a {
-    text-decoration: none;
-    color: var(--primary-color);
-    transition: color 0.2s;
-}
-
-.archive-content h3 a:hover {
-    color: var(--accent-color);
-}
-
-.archive-content p {
-    color: var(--text-light);
-    margin-bottom: 15px;
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-/* Etiquetas de Tecnologías (Tags) */
-.archive-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.archive-tags span {
-    font-family: 'Fira Code', monospace;
-    font-size: 0.85rem;
-    background: var(--tech-badge-bg);
-    color: var(--tech-badge-text);
-    padding: 4px 10px;
-    border-radius: 4px;
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
-}
-
-/* Hover en los tags */
-.archive-card:hover .archive-tags span {
-    border-color: var(--accent-color);
-}
-
-/* Contenedor de Imagen (Derecha) */
-.archive-image {
-    width: 160px;
-    height: 160px;
-    flex-shrink: 0; /* Evita que la imagen se aplaste */
-    border: 1px solid var(--border-color);
-    padding: 5px; /* Marco blanco/oscuro alrededor de la foto */
-    background: var(--card-bg);
-    border-radius: var(--border-radius);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: border-color 0.3s ease;
-}
-
-.archive-card:hover .archive-image {
-    border-color: var(--accent-color);
-}
-
-.archive-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 4px;
-}
-
-/* --- RESPONSIVE PARA MÓVILES --- */
-@media (max-width: 768px) {
-    .archive-card {
-        flex-direction: column-reverse; /* Imagen arriba, texto abajo */
-        align-items: flex-start;
-        gap: 20px;
-    }
-
-    .archive-image {
-        width: 100px;
-        height: 100px;
-        margin-bottom: 5px;
-    }
-
-    .archive-header h1 {
-        font-size: 2rem;
-    }
-}
-
-/* =========================================
-   WIDGET TIERRA (ESTILO WIREFRAME HOLOGRÁFICO)
-   ========================================= */
-.footer-right {
-    text-align: right;
-}
-
-.earth-widget {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 20px;
-    font-family: 'Fira Code', monospace;
-}
-
-/* Contenedor esférico */
-.earth-container {
-    width: 70px; /* Un poco más grande */
-    height: 70px;
-    border-radius: 50%;
-    position: relative;
-    /* Fondo más oscuro para resaltar el brillo */
-    background-color: rgba(15, 23, 42, 0.8);
-    border: 1px solid rgba(var(--accent-color-rgb), 0.3); /* Borde sutil del color del tema */
-    box-shadow:
-        inset 0 0 20px rgba(0,0,0,0.8), /* Sombra interior profunda */
-        0 0 15px rgba(var(--accent-color-rgb), 0.2); /* Resplandor exterior suave */
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-}
-
-/* SVG del Mapa Wireframe */
-.earth-svg {
-    width: 90%;
-    height: 90%;
-    color: var(--accent-color); /* Usa el color azul/cyan del tema */
-    /* EFECTO DE RESPLANDOR CLAVE */
-    filter: drop-shadow(0 0 2px var(--accent-color)) drop-shadow(0 0 5px var(--accent-color));
-    animation: rotateGlobe 20s linear infinite; /* Rotación suave */
-}
-
-/* Animación de rotación */
-@keyframes rotateGlobe {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* Brillo superior para efecto de cristal */
-.globe-overlay {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%);
-    pointer-events: none;
-    mix-blend-mode: overlay; /* Mezcla para un brillo más realista */
-}
-
-/* Datos de texto */
-.location-data {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    font-size: 0.8rem;
-    color: var(--text-light);
-    line-height: 1.5;
-}
-
-.loc-name {
-    font-weight: bold;
-    color: var(--text-main);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.loc-name i {
-    color: var(--accent-color);
-    filter: drop-shadow(0 0 2px var(--accent-color)); /* Brillo también en el icono */
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .earth-widget {
-        justify-content: center;
-        margin-top: 20px;
-    }
-    .location-data {
-        align-items: center;
-    }
+    /* Footer */
+    .footer-container { flex-direction: column; text-align: center; gap: 40px; }
+    .footer-left { align-items: center; }
+    .footer-top { justify-content: center; }
+    .footer-right { width: 100%; }
+    .earth-widget { justify-content: center; flex-direction: row-reverse; gap: 15px; }
+    .location-data { align-items: flex-start; text-align: left; }
+    
+    /* Dropdown */
+    .lang-dropdown-container { margin: 10px auto; }
+    .lang-dropdown-menu { right: 50%; transform: translateX(50%); text-align: center; }
 }
